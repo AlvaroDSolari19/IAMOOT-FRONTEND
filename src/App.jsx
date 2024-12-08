@@ -1,12 +1,14 @@
+import Button from 'react-bootstrap/Button'; 
+
 import './App.css'
 
 function App() {
 
   return (
-    <div>
-        <button>English</button><br/>
-        <button>Español</button><br/>
-        <button>Portuguese</button><br/>
+    <div className='d-grid gap-2'>
+        <Button variant='primary'>English</Button> 
+        <Button variant='primary'>Español</Button>
+        <Button variant='primary'>Português</Button>
     </div>
   )
 }
