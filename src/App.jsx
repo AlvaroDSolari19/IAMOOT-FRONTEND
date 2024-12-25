@@ -1,8 +1,6 @@
 import React from 'react'; 
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'; 
 
-import Button from 'react-bootstrap/Button'; 
-
 /*********
  * PAGES *
  *********/
@@ -12,19 +10,8 @@ import CompSelectPage from './pages/CompSelectPage';
 import OralCompPage from './pages/OralCompPage'
 import WrittenCompPage from './pages/WrittenCompPage'
 
-//import './App.css'
-
 function App() {
 
-  return (
-    <div className='d-grid gap-2'>
-        <Button variant='primary'>English</Button> 
-        <Button variant='primary'>Español</Button>
-        <Button variant='primary'>Português</Button>
-    </div>
-  );
-}
-/*
     return (
         <Router>
             <Routes>
@@ -37,6 +24,6 @@ function App() {
         </Router>
     ); 
 
-}*/
+}
 
 export default App;
