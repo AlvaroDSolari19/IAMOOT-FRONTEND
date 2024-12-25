@@ -16,14 +16,15 @@ import WrittenCompPage from './pages/WrittenCompPage'
 
 function App() {
 
-  /*return (
+  return (
     <div className='d-grid gap-2'>
         <Button variant='primary'>English</Button> 
         <Button variant='primary'>Español</Button>
         <Button variant='primary'>Português</Button>
     </div>
-  )*/
-
+  );
+}
+/*
     return (
         <Router>
             <Routes>
@@ -36,6 +37,6 @@ function App() {
         </Router>
     ); 
 
-}
+}*/
 
-export default App
+export default App;
