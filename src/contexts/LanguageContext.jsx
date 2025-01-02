@@ -10,10 +10,14 @@ export const LanguageProvider = ({ children }) => {
     
     const changeLanguage = (someLanguage) => {
         setLanguage(someLanguage); 
-    }
+    };
+
+    const resetLanguage = () => {
+        setLanguage('');
+    };
 
     return (
-        <LanguageContext.Provider value={{currentLanguage, changeLanguage}}>
+        <LanguageContext.Provider value={{currentLanguage, changeLanguage, resetLanguage}}>
             {children}
         </LanguageContext.Provider>
     );

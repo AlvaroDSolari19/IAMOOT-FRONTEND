@@ -20,9 +20,9 @@ const LoginPage = () => {
     };
 
     const formLabels = {
-        EN: {mainTitle: 'Access the Platform', theUsername: 'Username', thePassword: 'Password', theButton: 'Sign In'},
-        ES: {mainTitle: 'Acceso a la Plataforma', theUsername: 'Usuario', thePassword: 'Contraseña', theButton: 'Iniciar Sesion'}, 
-        POR: {mainTitle: 'Acesse a Plataforma', theUsername: 'Usuário', thePassword: 'Senha', theButton: 'Entrar'}
+        EN: {mainTitle: 'Access the Platform', theUsername: 'Username', userPlaceholder: 'Enter email', thePassword: 'Password', theButton: 'Sign In'},
+        ES: {mainTitle: 'Acceso a la Plataforma', theUsername: 'Usuario', userPlaceholder: 'Ingrese el correo electronico', thePassword: 'Contraseña', theButton: 'Iniciar Sesion'}, 
+        POR: {mainTitle: 'Acesse a Plataforma', theUsername: 'Usuário', userPlaceholder: 'Insira o email', thePassword: 'Senha', theButton: 'Entrar'}
     };
 
     const actualLabels = formLabels[currentLanguage]
@@ -33,12 +33,12 @@ const LoginPage = () => {
         <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className='mb-3'>
                 <Form.Label>{actualLabels.theUsername}</Form.Label>
-                <Form.Control type='email' placeholder='Enter email' {...register('username', {required: true})} />
+                <Form.Control type='email' placeholder={actualLabels.userPlaceholder} {...register('username', {required: true})} />
             </Form.Group>
 
             <Form.Group className='mb-3'>
                 <Form.Label>{actualLabels.thePassword}</Form.Label>
-                <Form.Control type='password' placeholder='Password' {...register('password', {required: true})} />
+                <Form.Control type='password' placeholder={actualLabels.thePassword} {...register('password', {required: true})} />
             </Form.Group>
 
             <Button variant='primary' type='submit'>{actualLabels.theButton}</Button>

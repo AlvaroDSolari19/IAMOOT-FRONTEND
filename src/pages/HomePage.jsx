@@ -6,7 +6,7 @@ import LanguageContext from '../contexts/LanguageContext';
 
 const HomePage = () => {
 
-    const { currentLanguage, changeLanguage } = useContext(LanguageContext); 
+    const { changeLanguage } = useContext(LanguageContext); 
     const performNavigation = useNavigate(); 
 
     const performLanguageChange = (someLanguage, someRoute) => {
