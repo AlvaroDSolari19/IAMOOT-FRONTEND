@@ -1,6 +1,11 @@
 import React from 'react'; 
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'; 
 
+/************
+ * CONTEXTS *
+ ************/
+import { LanguageProvider } from './contexts/LanguageContext';
+
 /*********
  * PAGES *
  *********/
@@ -13,15 +18,17 @@ import WrittenCompPage from './pages/WrittenCompPage'
 function App() {
 
     return (
-        <Router>
-            <Routes>
-                <Route path='/' element={<HomePage/>} />
-                <Route path='/login' element={<LoginPage/>} />
-                <Route path='/compselect' element={<CompSelectPage/>} />
-                <Route path='/oralcomp' element={<OralCompPage/>}/>
-                <Route path='/writtencomp' element={<WrittenCompPage/>} />
-            </Routes>
-        </Router>
+        <LanguageProvider>
+            <Router>
+                <Routes>
+                    <Route path='/' element={<HomePage/>} />
+                    <Route path='/login' element={<LoginPage/>} />
+                    <Route path='/compselect' element={<CompSelectPage/>} />
+                    <Route path='/oralcomp' element={<OralCompPage/>}/>
+                    <Route path='/writtencomp' element={<WrittenCompPage/>} />
+                </Routes>
+            </Router>
+        </LanguageProvider>
     ); 
 
 }
