@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
  * CONTEXTS *
  ************/
 import { LanguageProvider } from './contexts/LanguageContext';
+import { RoleProvider } from './contexts/RoleContext';
 
 /*********
  * PAGES *
@@ -19,15 +20,17 @@ function App() {
 
     return (
         <LanguageProvider>
-            <Router>
-                <Routes>
-                    <Route path='/' element={<HomePage/>} />
-                    <Route path='/login' element={<LoginPage/>} />
-                    <Route path='/compselect' element={<CompSelectPage/>} />
-                    <Route path='/oralcomp' element={<OralCompPage/>}/>
-                    <Route path='/writtencomp' element={<WrittenCompPage/>} />
-                </Routes>
-            </Router>
+            <RoleProvider>
+                <Router>
+                    <Routes>
+                        <Route path='/' element={<HomePage/>} />
+                        <Route path='/login' element={<LoginPage/>} />
+                        <Route path='/compselect' element={<CompSelectPage/>} />
+                        <Route path='/oralcomp' element={<OralCompPage/>}/>
+                        <Route path='/writtencomp' element={<WrittenCompPage/>} />
+                    </Routes>
+                </Router>
+            </RoleProvider>
         </LanguageProvider>
     ); 
 

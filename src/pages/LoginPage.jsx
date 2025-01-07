@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Form} from 'react-bootstrap';
 
 import LanguageContext from '../contexts/LanguageContext';
+import RoleContext from '../contexts/RoleContext'; 
 
 const LoginPage = () => {
 
+    const { assignRole } = useContext(RoleContext); 
     const { currentLanguage } = useContext(LanguageContext); 
     const performNavigation = useNavigate(); 
     const { register, handleSubmit, formState: { errors }, } = useForm();
@@ -15,7 +17,14 @@ const LoginPage = () => {
      * REVIEW LATER ONCE WE HAVE LOGGING IN INFORMATION *
      ****************************************************/
     const onSubmit = (someData) => {
-        console.log(someData);
+        const roleMapping = {
+            'judge@email.com': 'Judge',
+            'admin@email.com': 'Admin', 
+            'volunteer@email.com': 'Volunteer'
+        };
+
+        const currentRole = roleMapping[someData.username]; 
+        assignRole(currentRole); 
         performNavigation('/compselect')
     };
 
