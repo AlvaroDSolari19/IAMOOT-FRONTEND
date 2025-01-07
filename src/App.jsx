@@ -12,7 +12,7 @@ import { RoleProvider } from './contexts/RoleContext';
  *********/
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage'; 
-import CompSelectPage from './pages/CompSelectPage';
+import DashboardPage from './pages/DashboardPage';
 import OralCompPage from './pages/OralCompPage'
 import WrittenCompPage from './pages/WrittenCompPage'
 
@@ -25,7 +25,7 @@ function App() {
                     <Routes>
                         <Route path='/' element={<HomePage/>} />
                         <Route path='/login' element={<LoginPage/>} />
-                        <Route path='/compselect' element={<CompSelectPage/>} />
+                        <Route path='/dashboard' element={<DashboardPage/>} />
                         <Route path='/oralcomp' element={<OralCompPage/>}/>
                         <Route path='/writtencomp' element={<WrittenCompPage/>} />
                     </Routes>

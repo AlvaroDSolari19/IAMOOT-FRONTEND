@@ -24,8 +24,14 @@ const LoginPage = () => {
         };
 
         const currentRole = roleMapping[someData.username]; 
+
+        if (!currentRole){
+            alert('Invalid username or roles not assigned.');
+            return; 
+        }
+
         assignRole(currentRole); 
-        performNavigation('/compselect')
+        performNavigation('/dashboard')
     };
 
     const formLabels = {

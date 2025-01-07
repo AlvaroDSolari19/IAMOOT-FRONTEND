@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from 'react-bootstrap';
 
 import LanguageContext from '../contexts/LanguageContext';
-
-import NavigateButton from '../components/NavigateButton';
+import RoleContext from '../contexts/RoleContext'; 
 
 const CompSelectPage = () => { 
 
     const { currentLanguage, resetLanguage } = useContext(LanguageContext);
+    const { currentRole } = useContext(RoleContext); 
     const performNavigation = useNavigate(); 
 
     const buttonsText = {
@@ -25,9 +25,10 @@ const CompSelectPage = () => {
     };
 
     return <div className='d-grid gap-2'>
-        <h1>{actualText.mainTitle}</h1>
-        <NavigateButton to='/oralcomp'>{actualText.oralComp}</NavigateButton>
-        <NavigateButton to='/writtencomp'>{actualText.writtenComp}</NavigateButton>
+        <h1>Welcome, {currentRole}</h1>
+        <h2>{actualText.mainTitle}</h2>
+        <Button variant='primary' onClick={() => {performNavigation('/oralcomp')}}>{actualText.oralComp}</Button>
+        <Button variant='primary' onClick={() => {performNavigation('/writtencomp')}}>{actualText.writtenComp}</Button>
         <Button variant='danger' onClick={handleSignOut}>{actualText.buttonText}</Button>
     </div>
 };
