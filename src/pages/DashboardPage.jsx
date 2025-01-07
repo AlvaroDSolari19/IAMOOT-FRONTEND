@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import LanguageContext from '../contexts/LanguageContext';
 import RoleContext from '../contexts/RoleContext'; 
 
-const CompSelectPage = () => { 
+const DashboardPage = () => { 
 
     const { currentLanguage, resetLanguage } = useContext(LanguageContext);
     const { currentRole } = useContext(RoleContext); 
@@ -33,4 +33,4 @@ const CompSelectPage = () => {
     </div>
 };
 
-export default CompSelectPage; 
+export default DashboardPage; 
