@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react'; 
 
-const RoleContext = createContext(); 
+export const RoleContext = createContext(); 
 
 export const RoleProvider = ({ children }) => {
     const [currentRole, setRole] = useState(''); 
@@ -16,7 +16,3 @@ export const RoleProvider = ({ children }) => {
     );
 
 };
-
-
-
-export default RoleContext; 
