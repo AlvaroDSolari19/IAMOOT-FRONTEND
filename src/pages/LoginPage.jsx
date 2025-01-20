@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom'; 
 import { Button, Form} from 'react-bootstrap';
 
-import LanguageContext from '../contexts/LanguageContext';
+import { LanguageContext } from '../contexts/LanguageContext';
 import RoleContext from '../contexts/RoleContext'; 
 
 const LoginPage = () => {

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 
-import LanguageContext from '../contexts/LanguageContext';
+import { LanguageContext } from '../contexts/LanguageContext';
 
 const HomePage = () => {
 
