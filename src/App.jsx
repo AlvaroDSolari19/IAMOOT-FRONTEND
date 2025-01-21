@@ -13,8 +13,8 @@ import { RoleProvider } from './contexts/RoleContext';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage'; 
 import DashboardPage from './pages/DashboardPage';
-import OralCompPage from './pages/OralCompPage'
-import WrittenCompPage from './pages/WrittenCompPage'
+import AdminOralCompPage from './pages/AdminOralCompPage';
+import AdminWrittenCompPage from './pages/AdminWrittenCompPage';
 
 function App() {
 
@@ -26,8 +26,10 @@ function App() {
                         <Route path='/' element={<HomePage/>} />
                         <Route path='/login' element={<LoginPage/>} />
                         <Route path='/dashboard' element={<DashboardPage/>} />
-                        <Route path='/oralcomp' element={<OralCompPage/>}/>
-                        <Route path='/writtencomp' element={<WrittenCompPage/>} />
+                        <Route path='/oralcomp/admin' element={<AdminOralCompPage/>}/>
+                        <Route path='/oralcomp/judge' element={<OralCompPage/>}/>
+                        <Route path='/writtencomp/admin' element={<AdminWrittenCompPage/>} />
+                        <Route path='/writtencomp/judge' element={<WrittenCompPage/>} />
                     </Routes>
                 </Router>
             </RoleProvider>

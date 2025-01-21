@@ -8,7 +8,7 @@ import { RoleContext } from '../contexts/RoleContext';
 const DashboardPage = () => { 
 
     const { currentLanguage, resetLanguage } = useContext(LanguageContext);
-    const { currentRole } = useContext(RoleContext); 
+    const { currentRole, assignRole } = useContext(RoleContext); 
     const performNavigation = useNavigate(); 
 
     const buttonsText = {
@@ -25,6 +25,9 @@ const DashboardPage = () => {
         performNavigation('/');
     };
 
+    /****************************************
+     * CHECKS THAT THE USER HAS EITHER ROLE *
+     ****************************************/
     useEffect(() => {
         if (!['Admin', 'Judge', 'Volunteer'].includes(currentRole)){
             handleSignOut(); 
@@ -37,16 +40,16 @@ const DashboardPage = () => {
             return (<div className='d-grid gap-2'>
                 <h1>Welcome Admin</h1>
                 <h2>Select the Competition</h2>
-                <Button variant='primary' onClick={() => {performNavigation('/oralcomp')}}>Oral Competition</Button>
-                <Button variant='primary' onClick={() => {performNavigation('/writtencomp')}}>Written Competition</Button>
+                <Button variant='primary' onClick={() => {performNavigation('/oralcomp/admin')}}>Oral Competition</Button>
+                <Button variant='primary' onClick={() => {performNavigation('/writtencomp/admin')}}>Written Competition</Button>
                 <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
             </div>);
         } else if (currentRole === 'Judge'){
             return (<div className='d-grid gap-2'>
                 <h1>{actualText.welcomeMsg} {currentRole}</h1>
                 <h2>{actualText.mainTitle}</h2>
-                <Button variant='primary' onClick={() => {performNavigation('/oralcomp')}}>{actualText.oralComp}</Button>
-                <Button variant='primary' onClick={() => {performNavigation('/writtencomp')}}>{actualText.writtenComp}</Button>
+                <Button variant='primary' onClick={() => {performNavigation('/oralcomp/judge')}}>{actualText.oralComp}</Button>
+                <Button variant='primary' onClick={() => {performNavigation('/writtencomp/judge')}}>{actualText.writtenComp}</Button>
                 <Button variant='danger' onClick={handleSignOut}>{actualText.buttonText}</Button>
             </div>);
         } else if (currentRole === 'Volunteer'){
