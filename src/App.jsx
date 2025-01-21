@@ -15,6 +15,10 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import AdminOralCompPage from './pages/AdminOralCompPage';
 import AdminWrittenCompPage from './pages/AdminWrittenCompPage';
+import IndividualAwardsPage from './pages/IndividualAwardsPage';
+import TeamAwardsPage from './pages/TeamAwardsPage.jsx'; 
+import JudgeOralCompPage from './pages/JudgeOralCompPage.jsx';
+import JudgeWrittenCompPage from './pages/JudgeWrittenCompPage.jsx';
 
 function App() {
 
@@ -27,9 +31,11 @@ function App() {
                         <Route path='/login' element={<LoginPage/>} />
                         <Route path='/dashboard' element={<DashboardPage/>} />
                         <Route path='/oralcomp/admin' element={<AdminOralCompPage/>}/>
-                        <Route path='/oralcomp/judge' element={<OralCompPage/>}/>
+                        <Route path='/oralcomp/judge' element={<JudgeOralCompPage/>}/>
+                        <Route path='/individualawards' element={<IndividualAwardsPage/>} />
+                        <Route path='/teamawards' element={<TeamAwardsPage/>} />
                         <Route path='/writtencomp/admin' element={<AdminWrittenCompPage/>} />
-                        <Route path='/writtencomp/judge' element={<WrittenCompPage/>} />
+                        <Route path='/writtencomp/judge' element={<JudgeWrittenCompPage/>} />
                     </Routes>
                 </Router>
             </RoleProvider>
