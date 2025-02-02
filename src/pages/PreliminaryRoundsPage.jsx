@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
 
-const OralRoundsPage = () => { 
+const PreliminaryRoundsPage = () => { 
 
     const { resetLanguage } = useContext(LanguageContext);
     const { currentRole, assignRole } = useContext(RoleContext); 
@@ -27,12 +27,15 @@ const OralRoundsPage = () => {
     }, [currentRole]);
     
     return <div className='d-grid gap-2'>
-        <h1>Oral Rounds Competition</h1>
-        <Button variant='primary' onClick={() => {performNavigation('/oralrounds/prelims')}}>Preliminary Rounds</Button>
-        <Button variant='primary' onClick={() => {performNavigation('/oralrounds/semifinals')}}>Semifinal Rounds</Button>
+        <h1>Preliminary Rounds</h1>
+        <p>The schedule would display here ... We need to discuss the format and what it includes.</p>
+        <p>So far I'm assuming the name of the teams participating on the match, location, and time.</p>
+        <p>Regarding the format, I'm thinking a list perhaps. Upon clicking it, it opens another page where you enter the winner.</p>
+        <Button variant='primary' onClick={() => {}}>Results</Button>
+        <p>Upon clicking the results, it will show you a table with: Team Number, School, Number of Victories, Number of Defeats</p>
         <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
     </div>
 
 };
 
-export default OralRoundsPage; 
+export default PreliminaryRoundsPage; 

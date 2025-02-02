@@ -17,6 +17,8 @@ import AdminOralCompPage from './pages/AdminOralCompPage';
 import AdminWrittenCompPage from './pages/AdminWrittenCompPage';
 import IndividualScoresPage from './pages/IndividualScoresPage.jsx';
 import OralRoundsPage from './pages/OralRoundsPage.jsx'; 
+import PreliminaryRoundsPage from './pages/PreliminaryRoundsPage.jsx';
+import SemiFinalRoundsPage from './pages/SemiFinalRoundsPage.jsx';
 import JudgeOralCompPage from './pages/JudgeOralCompPage.jsx';
 import JudgeWrittenCompPage from './pages/JudgeWrittenCompPage.jsx';
 
@@ -27,15 +29,17 @@ function App() {
             <RoleProvider>
                 <Router>
                     <Routes>
-                        <Route path='/' element={<HomePage/>} />
-                        <Route path='/login' element={<LoginPage/>} />
-                        <Route path='/dashboard' element={<DashboardPage/>} />
+                        <Route path='/' element={<HomePage/>}/>
+                        <Route path='/login' element={<LoginPage/>}/>
+                        <Route path='/dashboard' element={<DashboardPage/>}/>
                         <Route path='/oralcomp/admin' element={<AdminOralCompPage/>}/>
                         <Route path='/oralcomp/judge' element={<JudgeOralCompPage/>}/>
-                        <Route path='/individualscores' element={<IndividualScoresPage/>} />
+                        <Route path='/individualscores' element={<IndividualScoresPage/>}/>
+                        <Route path='/oralrounds/prelims' element={<PreliminaryRoundsPage/>}/>
+                        <Route path='/oralrounds/semifinals' element={<SemiFinalRoundsPage/>}/>
                         <Route path='/oralrounds' element={<OralRoundsPage/>}/>
-                        <Route path='/writtencomp/admin' element={<AdminWrittenCompPage/>} />
-                        <Route path='/writtencomp/judge' element={<JudgeWrittenCompPage/>} />
+                        <Route path='/writtencomp/admin' element={<AdminWrittenCompPage/>}/>
+                        <Route path='/writtencomp/judge' element={<JudgeWrittenCompPage/>}/>
                     </Routes>
                 </Router>
             </RoleProvider>
