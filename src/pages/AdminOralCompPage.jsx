@@ -28,8 +28,8 @@ const AdminOralCompPage = () => {
     
     return <div className='d-grid gap-2'>
         <h1>Admin Oral Competition</h1>
-        <Button variant='primary' onClick={() => {performNavigation('/individualawards')}}>Individual Awards</Button>
-        <Button variant='primary' onClick={() => {performNavigation('/teamawards')}}>Team Awards</Button>
+        <Button variant='primary' onClick={() => {performNavigation('/individualscores')}}>Individual Scores</Button>
+        <Button variant='primary' onClick={() => {performNavigation('/oralrounds')}}>Oral Rounds</Button>
         <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
     </div>
 

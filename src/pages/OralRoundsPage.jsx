@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
 
-const TeamAwardsPage = () => { 
+const OralRoundsPage = () => { 
 
     const { resetLanguage } = useContext(LanguageContext);
     const { currentRole, assignRole } = useContext(RoleContext); 
@@ -34,4 +34,4 @@ const TeamAwardsPage = () => {
 
 };
 
-export default TeamAwardsPage; 
+export default OralRoundsPage; 
