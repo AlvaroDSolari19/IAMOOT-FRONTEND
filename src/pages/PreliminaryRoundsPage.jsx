@@ -41,6 +41,7 @@ const PreliminaryRoundsPage = () => {
                         <td>Team ID</td>
                         <td>Number of Victories</td>
                         <td>Number of Defeats</td>
+                        <td>Average Score for Memorandums</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,12 +50,14 @@ const PreliminaryRoundsPage = () => {
                         <td>202</td>
                         <td>2</td>
                         <td>1</td>
+                        <td>8.5</td>
                     </tr>
                     <tr>
                         <td>University of West Florida</td>
                         <td>850</td>
                         <td>1</td>
                         <td>1</td>
+                        <td>7.25</td>
                     </tr>
                 </tbody>
             </Table>
