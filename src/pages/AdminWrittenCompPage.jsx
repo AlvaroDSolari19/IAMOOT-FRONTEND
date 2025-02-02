@@ -44,7 +44,7 @@ const AdminWrittenCompPage = () => {
                     <tr>
                         <th>Ranking</th>
                         <th>School</th>
-                        <th>Team Number</th>
+                        <th>Team ID</th>
                         <th>Memorandum Score for State</th>
                         <th>Memorandum Score for Victim</th>
                         <th>Average Memorandum Score</th>
