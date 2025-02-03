@@ -1,15 +1,23 @@
 import React, { useContext, useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
-import { Button } from 'react-bootstrap'; 
+import { Button, Table } from 'react-bootstrap'; 
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
 
 const JudgeOralCompPage = () => { 
 
-    const { resetLanguage } = useContext(LanguageContext);
+    const { currentLanguage, resetLanguage } = useContext(LanguageContext);
     const { currentRole, assignRole } = useContext(RoleContext); 
     const performNavigation = useNavigate(); 
+
+    const pageText = {
+        EN: {welcomeMsg: 'My Assigned Rounds', matchupText: 'Matchup', locationText: 'Location', classroomText: 'Room', timeText: 'Time', buttonText: 'Sign Out'}, 
+        ES: {welcomeMsg: 'Mis Rondas Asignadas', matchupText: 'Emparejamiento', locationText: 'Ubicación', classroomText: 'Aula', timeText: 'Hora', buttonText: 'Cerrar Sesión'},
+        POR: {welcomeMsg: 'Minhas Rodadas Atribuídas', matchupText: 'Confronto', locationText: 'Localização', classroomText: 'Sala de Aula', timeText: 'Hora', buttonText: 'Sair'}
+    };
+
+    const actualText = pageText[currentLanguage]; 
 
     const handleSignOut = () => {
         resetLanguage(); 
@@ -18,7 +26,7 @@ const JudgeOralCompPage = () => {
     };
 
     /*********************************
-     * CHECKS THAT THE ROLE IS ADMIN *
+     * CHECKS THAT THE ROLE IS JUDGE *
      *********************************/
     useEffect(() => {
         if (currentRole !== 'Judge'){
@@ -27,10 +35,24 @@ const JudgeOralCompPage = () => {
     }, [currentRole]);
     
     return <div className='d-grid gap-2'>
-        <h1>Judge Oral Competition</h1>
-        <p>The user would see a page that contains a list oof items including the location and the matches he has been assigned to.</p>
-        <p>Upon clicking on the item, it will take you to a new page where it the teams competing and prompts him to select a winner.</p>
-        <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
+        <h1>{actualText.welcomeMsg}</h1>
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <td>{actualText.matchupText}</td>
+                    <td>{actualText.locationText}</td>
+                    <td>{actualText.timeText}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>American University vs University of West Florida</td>
+                    <td>{actualText.classroomText} 403</td>
+                    <td>4:00 PM</td>
+                </tr>
+            </tbody>
+        </Table>
+        <Button variant='danger' onClick={handleSignOut}>{actualText.buttonText}</Button>
     </div>
 
 };

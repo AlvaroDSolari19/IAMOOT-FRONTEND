@@ -13,7 +13,7 @@ const DashboardPage = () => {
 
     const buttonsText = {
         EN: {welcomeMsg: 'Welcome ', mainTitle: 'Select the Competition', oralComp: 'Oral Competition', writtenComp: 'Written Competition', buttonText: 'Sign Out'},
-        ES: {welcomeMsg: 'Bienvenido/a', mainTitle: 'Seleccione la Competencia', oralComp: 'Competencia Oral', writtenComp: 'Competencia Escrita', buttonText: 'Cerrar Sesion'},
+        ES: {welcomeMsg: 'Bienvenido/a', mainTitle: 'Seleccione la Competencia', oralComp: 'Competencia Oral', writtenComp: 'Competencia Escrita', buttonText: 'Cerrar Sesión'},
         POR: {welcomeMsg: 'Bem-vindo/a!', mainTitle: 'Selecione a Competição', oralComp: 'Competição Oral', writtenComp: 'Competição Escrita', buttonText: 'Sair'}
     };
 
