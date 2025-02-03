@@ -28,8 +28,8 @@ const JudgeWrittenCompPage = () => {
     
     return <div className='d-grid gap-2'>
         <h1>Judge Written Competition</h1>
-        <p>The user would see a page that contains a list oof items including the location and the matches he has been assigned to.</p>
-        <p>Upon clicking on the item, it will take you to a new page where it the teams competing and prompts him to select a winner.</p>
+        <p>The user would see a page that contains a list of links with all the memorandums assigned to them.</p>
+        <p>Upon clicking on a link, it will take you to a new page where it displays the rubric along with the memorandum.</p>
         <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
     </div>
 
