@@ -19,6 +19,7 @@ import IndividualScoresPage from './pages/IndividualScoresPage.jsx';
 import OralRoundsPage from './pages/OralRoundsPage.jsx'; 
 import PreliminaryRoundsPage from './pages/PreliminaryRoundsPage.jsx';
 import SemiFinalRoundsPage from './pages/SemiFinalRoundsPage.jsx';
+import MatchDetailsPage from './pages/MatchDetailsPage.jsx';
 import JudgeOralCompPage from './pages/JudgeOralCompPage.jsx';
 import JudgeWrittenCompPage from './pages/JudgeWrittenCompPage.jsx';
 
@@ -37,6 +38,7 @@ function App() {
                         <Route path='/individualscores' element={<IndividualScoresPage/>}/>
                         <Route path='/oralrounds/prelims' element={<PreliminaryRoundsPage/>}/>
                         <Route path='/oralrounds/semifinals' element={<SemiFinalRoundsPage/>}/>
+                        <Route path='/oralrounds/:matchID' element={<MatchDetailsPage/>}/>
                         <Route path='/oralrounds' element={<OralRoundsPage/>}/>
                         <Route path='/writtencomp/admin' element={<AdminWrittenCompPage/>}/>
                         <Route path='/writtencomp/judge' element={<JudgeWrittenCompPage/>}/>
