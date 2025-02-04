@@ -39,11 +39,11 @@ function App() {
                         <Route path='/individualscores' element={<IndividualScoresPage/>}/>
                         <Route path='/oralrounds/prelims' element={<PreliminaryRoundsPage/>}/>
                         <Route path='/oralrounds/semifinals' element={<SemiFinalRoundsPage/>}/>
-                        <Route path='/oralrounds/:matchID' element={<OralMatchDetailsPage/>}/>
+                        <Route path='/oralrounds/match/:matchID' element={<OralMatchDetailsPage/>}/>
                         <Route path='/oralrounds' element={<OralRoundsPage/>}/>
                         <Route path='/writtencomp/admin' element={<AdminWrittenCompPage/>}/>
                         <Route path='/writtencomp/judge' element={<JudgeWrittenCompPage/>}/>
-                        <Route path='/writtencomp/:matchID' element={<WrittenMatchDetailsPage/>}/>
+                        <Route path='/writtencomp/memorandum/:memorandumID' element={<WrittenMatchDetailsPage/>}/>
                     </Routes>
                 </Router>
             </RoleProvider>

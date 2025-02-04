@@ -45,7 +45,7 @@ const JudgeOralCompPage = () => {
                 </tr>
             </thead>
             <tbody>
-                <tr onClick={() => performNavigation('/oralrounds/1')} style={{cursor: 'pointer'}}>
+                <tr onClick={() => performNavigation('/oralrounds/match/1')} style={{cursor: 'pointer'}}>
                     <td>American University vs University of West Florida</td>
                     <td>{actualText.classroomText} 403</td>
                     <td>4:00 PM</td>

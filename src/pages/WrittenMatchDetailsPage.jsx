@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'; 
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, useParams } from 'react-router-dom'; 
 import { Button,  } from 'react-bootstrap'; 
 
 import { LanguageContext } from '../contexts/LanguageContext';
@@ -9,6 +9,7 @@ const WrittenMatchDetailsPage = () => {
 
     const { currentLanguage, resetLanguage } = useContext(LanguageContext);
     const { currentRole, assignRole } = useContext(RoleContext); 
+    const { memorandumID } = useParams(); 
     const performNavigation = useNavigate(); 
 
     const handleSignOut = () => {
@@ -27,6 +28,7 @@ const WrittenMatchDetailsPage = () => {
     }, [currentRole]);
         
     return <div>
+        <h1>Memorandum {memorandumID}</h1>
         <p>The rubric for the written competition will be here</p>
     </div>
 };
