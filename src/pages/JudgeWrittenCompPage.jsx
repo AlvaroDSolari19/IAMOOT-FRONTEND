@@ -37,8 +37,8 @@ const JudgeWrittenCompPage = () => {
     return <div className='d-grid gap-2'>
         <h1>{actualText.welcomeMsg}</h1>
         <ListGroup>
-            <ListGroup.Item>{actualText.memoText} #1</ListGroup.Item>
-            <ListGroup.Item>{actualText.memoText} #2</ListGroup.Item>
+            <ListGroup.Item action onClick={() => {performNavigation('/writtencomp/1')}} style={{ cursor: 'pointer'}}>{actualText.memoText} #1</ListGroup.Item>
+            <ListGroup.Item action onClick={() => {performNavigation('/writtencomp/2')}} style={{ cursor: 'pointer'}}>{actualText.memoText} #2</ListGroup.Item>
         </ListGroup>
         <Button variant='danger' onClick={handleSignOut}>{actualText.logoutText}</Button>
     </div>

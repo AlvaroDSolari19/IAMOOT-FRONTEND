@@ -5,7 +5,7 @@ import { Button,  } from 'react-bootstrap';
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
 
-const MatchDetailsPage = () => { 
+const OralMatchDetailsPage = () => { 
 
     const { currentLanguage, resetLanguage } = useContext(LanguageContext);
     const { currentRole, assignRole } = useContext(RoleContext); 
@@ -31,4 +31,4 @@ const MatchDetailsPage = () => {
     </div>
 };
 
-export default MatchDetailsPage; 
+export default OralMatchDetailsPage; 
