@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'; 
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom'; 
-import { Button, Form } from 'react-bootstrap'; 
+import { Accordion, Button, Card, Form, ListGroup } from 'react-bootstrap'; 
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
@@ -147,35 +147,49 @@ const OralMatchDetailsPage = () => {
     }, [currentRole]);
         
     return <div className='d-grid gap-2'>
-        <h1>Match {matchID}: Team 1 vs Team 2</h1>
-        <Form>
-            {matchParticipants.map((eachParticipant, participantIndex) => (
-                <div>
-                <h2>Evaluation for {eachParticipant}</h2>
-                {actualFormText.map( (currentQuestion, questionIndex) => (                    
-                    <div>
-                        <p><strong>Category: {currentQuestion.currentCategory}</strong></p>
-                        
-                        <p><strong>Criteria</strong></p>
-                        <ul>
-                            {currentQuestion.currentCriteria.map( (currentCriterion, criteriaIndex) => (
-                                <li>{currentCriterion}</li>
-                            ))}
-                        </ul>
+        
+        <Card className='text-center mb-4'>
+            <Card.Header as='h1' className='display-5 fw-bold'>Match {matchID}: Team 1 vs Team 2</Card.Header>
+        </Card>
 
-                        <p><strong>Scoring Template</strong></p>
-                        <ul>
-                            {currentQuestion.currentTemplate.map( (differentScores, scoreIndex) => (
-                                <li>{differentScores}</li>
+        <Form>
+            <Accordion defaultActiveKey='0'>
+                {matchParticipants.map((eachParticipant, participantIndex) => (
+                    <Accordion.Item eventKey={participantIndex.toString()} key={participantIndex} >
+                        <Accordion.Header>{eachParticipant}</Accordion.Header>
+                        <Accordion.Body>
+                            {actualFormText.map( (currentQuestion, questionIndex) => (                    
+                                <Card key={questionIndex} className='mb-4'>
+                                    <Card.Body>
+                                        <Card.Title>{currentQuestion.currentCategory}</Card.Title>
+                                
+                                        <Card.Subtitle className='mt-3 mb-2'>Evaluation Criteria</Card.Subtitle>
+                                        <ListGroup variant='flush'>
+                                            {currentQuestion.currentCriteria.map( (currentCriterion, criteriaIndex) => (
+                                                <ListGroup.Item key={criteriaIndex}>{currentCriterion}</ListGroup.Item>
+                                            ))}
+                                        </ListGroup>
+
+                                        <Card.Subtitle className='mt-3 mb-2'>Scoring Template</Card.Subtitle>
+                                        <ListGroup variant='flush'>
+                                            {currentQuestion.currentTemplate.map( (differentScores, scoreIndex) => (
+                                                <ListGroup.Item key={scoreIndex}>{differentScores}</ListGroup.Item>
+                                            ))}
+                                        </ListGroup>
+
+                                        <Form.Group>
+                                            <Form.Label>Enter score</Form.Label>
+                                            <Form.Control type='number' min={currentQuestion.minValue} max={currentQuestion.maxValue} required/>
+                                        </Form.Group>
+                                    </Card.Body>
+                                </Card>
                             ))}
-                        </ul>
-                        <Form.Label>Enter score</Form.Label>
-                        <Form.Control type='number' min={currentQuestion.minValue} max={currentQuestion.maxValue} required/>
-                    </div>
+                        </Accordion.Body>
+                    </Accordion.Item>
                 ))}
-                </div>
-            ))}
+            </Accordion>
         </Form>
+        <Button variant='success'>Submit All Evaluations</Button>
         <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
     </div>
 };
