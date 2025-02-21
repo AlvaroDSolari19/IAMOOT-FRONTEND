@@ -41,7 +41,16 @@ const OralMatchDetailsPage = () => {
      * HANDLE FORM SUBMISSION *
      **************************/
     const onSubmit = (someData) => {
-        console.log ('Submitted Scores: ', someData); 
+        Object.keys(someData.submittedScores).forEach( (currentParticipant) => {
+            let totalScore = 0; 
+            const participantScores = someData.submittedScores[currentParticipant]; 
+            participantScores.forEach(currentScore => {
+                totalScore = totalScore + Number(currentScore); 
+            })
+            console.log(`${currentParticipant} made a total score of ${totalScore}`)
+        })
+
+        performNavigation('/oralcomp/judge');
     }
         
     return <div className='d-grid gap-2'>
