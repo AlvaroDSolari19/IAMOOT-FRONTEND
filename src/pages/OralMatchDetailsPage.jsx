@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'; 
+import React, { useContext, useEffect, useState, useRef } from 'react'; 
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom'; 
 import { Accordion, Button, Card, Form, ListGroup } from 'react-bootstrap'; 
@@ -11,10 +11,13 @@ import questionText from '../data/oralRubric';
 const OralMatchDetailsPage = () => { 
 
     const { currentLanguage, resetLanguage } = useContext(LanguageContext);
-    const { currentRole, assignRole } = useContext(RoleContext); 
+    const { currentRole, assignRole } = useContext(RoleContext);
+    const { register, handleSubmit, formState: { errors } } = useForm();  
     const { matchID } = useParams(); 
     const performNavigation = useNavigate(); 
-    const { register, handleSubmit, formState: { errors } } = useForm(); 
+
+    const [openPanel, setOpenPanel] = useState(null);
+    const accordionRefs = useRef({}); 
 
     const matchParticipants = ['Participant 1 of Team 1', 'Participant 2 of Team 1', 'Participant 1 of Team 2', 'Participant 2 of Team 2'];
     const actualFormText = questionText[currentLanguage]; 
@@ -38,29 +41,6 @@ const OralMatchDetailsPage = () => {
      * HANDLE FORM SUBMISSION *
      **************************/
     const onSubmit = (someData) => {
-        
-        console.log('onSubmit is triggering');
-        const missingFields = []; 
-
-        /* Goes through all of matchParticipants and through all of the actualFormText. 
-         * If someData is not found for any question, then it will add that question to the missingFields array. */
-        matchParticipants.forEach( (currentParticipant, participantIndex) => {
-            actualFormText.forEach( (currentQuestion, questionIndex) => {
-                const categoryName = `submittedScored.${currentParticipant}.${questionIndex}`;
-                if (!someData.submittedScores || !someData.submittedScores[currentParticipant] || someData.submittedScores[currentParticipant][questionIndex] === undefined){
-                    console.log('Item added to missing fields'); 
-                    missingFields.push(`${currentParticipant} - Question ${questionIdex + 1}: "${currentQuestion.currentCategory}"`)
-                }
-            });
-        });
-
-        /* If there are missing fields by the time it cycles over all the questions, then show an alert button without submitting. */
-        if (missingFields.length > 0){
-            alert(`The following fields need to be filled:\n\n${missingFields.join('\n')}`);
-            return;
-        }
-        
-
         console.log ('Submitted Scores: ', someData); 
     }
         
@@ -71,9 +51,20 @@ const OralMatchDetailsPage = () => {
         </Card>
 
         <Form onSubmit={handleSubmit(onSubmit)}>
-            <Accordion defaultActiveKey={null}>
+            <Accordion activeKey={openPanel} onSelect={(eventKey) => {
+                setOpenPanel(eventKey);
+                setTimeout(() => {
+                    if (eventKey !== null){
+                        const panelRef = accordionRefs.current[eventKey];
+                        if (panelRef){
+                            panelRef.scrollIntoView({behavior: 'smooth', block: 'start'});
+                        }
+                    }
+                }, 350);
+            }}>
+                
                 {matchParticipants.map((eachParticipant, participantIndex) => (
-                    <Accordion.Item eventKey={participantIndex.toString()} key={participantIndex} >
+                    <Accordion.Item eventKey={participantIndex.toString()} key={participantIndex} ref={(el) => accordionRefs.current[participantIndex] = el}>
                         <Accordion.Header>{eachParticipant}</Accordion.Header>
                         <Accordion.Body>
                             {actualFormText.map( (currentQuestion, questionIndex) => (                    
@@ -110,7 +101,7 @@ const OralMatchDetailsPage = () => {
                                                 onBlur={(someEvent) => {
                                                     let targetValue = Number(someEvent.target.value);
                                                     if (targetValue < currentQuestion.minValue) someEvent.target.value = currentQuestion.minValue; 
-                                                    if (targetValue > currentQuestion.maxValue) someEvent.target.value = currentQuestion.maxValue; 
+                                                    if (targetValue > currentQuestion.maxValue) someEvent.target.value = currentQuestion.maxValue;   
                                                 }}
                                             />
                                             {errors.submittedScores?.[eachParticipant]?.[questionIndex] && (
