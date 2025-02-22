@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react'; 
+import { useForm } from 'react-hook-form'; 
 import { useNavigate, useParams } from 'react-router-dom'; 
 import { Button, Card, Form, ListGroup } from 'react-bootstrap'; 
 
@@ -11,6 +12,7 @@ const WrittenMatchDetailsPage = () => {
 
     const { currentLanguage, resetLanguage } = useContext(LanguageContext);
     const { currentRole, assignRole } = useContext(RoleContext); 
+    const { register, handleSubmit, formState: { errors } } = useForm(); 
     const { memorandumID } = useParams(); 
     const performNavigation = useNavigate(); 
 
@@ -46,6 +48,23 @@ const WrittenMatchDetailsPage = () => {
                                 <ListGroup.Item key={criteriaIndex}>{currentCriterion}</ListGroup.Item>
                             ))}
                         </ListGroup>
+
+                        <Form.Group>
+                            <Form.Label>Enter Score: </Form.Label>
+                            <Form.Control 
+                                type='number' 
+                                min={currentQuestion.minValue} 
+                                max={currentQuestion.maxValue} 
+                                onWheel={(someEvent) => someEvent.target.blur()}
+                                /* ADD RIGISTER HERE */
+                                onBlur={(someEvent) => {
+                                    let targetValue = Number(someEvent.target.value); 
+                                    if (targetValue < currentQuestion.minValue) someEvent.target.value = currentQuestion.minValue; 
+                                    if (targetValue > currentQuestion.maxValue) someEvent.target.value = currentQuestion.maxValue; 
+                                }}
+                            />
+
+                        </Form.Group>
                     </Card.Body>
             </Card> 
             ))}
