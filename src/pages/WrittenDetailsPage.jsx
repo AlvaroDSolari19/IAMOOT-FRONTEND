@@ -21,6 +21,13 @@ const WrittenDetailsPage = () => {
     //Translate Error Message
     //Translate Submit
 
+    const pageText = {
+        EN: {pageTitle: 'Memorandum', labelPrompt: 'Enter score', errorMessage: 'Please enter a value for the above field', submitMsg: 'Submit score'}, 
+        ES: {pageTitle: "Memorándum", labelPrompt: "Ingrese puntuación", errorMessage: "Por favor, ingrese un valor para el campo anterior", submitMsg: "Registrar puntuación"},
+        POR: {pageTitle: "Memorando", labelPrompt: "Insira a pontuação", errorMessage: "Por favor, insira um valor para o campo acima", submitMsg: "Registrar pontuação"}
+    }
+
+    const actualText = pageText[currentLanguage]; 
     const actualFormText = questionText[currentLanguage]; 
 
     const handleSignOut = () => {
@@ -49,7 +56,7 @@ const WrittenDetailsPage = () => {
         
     return <div>
         <Card className='text-center mb-4'>
-            <Card.Header as='h1' className='display-5 fw-bold'>Memorandum {memorandumID}</Card.Header>
+            <Card.Header as='h1' className='display-5 fw-bold'>{actualText.pageTitle} {memorandumID}</Card.Header>
         </Card>
 
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -63,34 +70,36 @@ const WrittenDetailsPage = () => {
                             ))}
                         </ListGroup>
 
-                        <Form.Group>
-                            <Form.Label>Enter Score: </Form.Label>
-                            <Form.Control 
-                                type='number' 
-                                min={currentQuestion.minValue} 
-                                max={currentQuestion.maxValue} 
-                                onWheel={(someEvent) => someEvent.target.blur()}
-                                {...register(`submittedScores.${questionIndex}`, {
-                                    required: 'Score is required', 
-                                    min: currentQuestion.minValue, 
-                                    max: currentQuestion.maxValue
-                                })}
-                                onBlur={(someEvent) => {
-                                    let targetValue = Number(someEvent.target.value); 
-                                    if (targetValue < currentQuestion.minValue) setValue(`submittedScores.${questionIndex}`, currentQuestion.minValue);
-                                    if (targetValue > currentQuestion.maxValue) setValue(`submittedScores.${questionIndex}`, currentQuestion.maxValue);
-                                }}
-                            />
+                        <Form.Group className='w-100'>
+                            <div className='d-flex align-items-center gap-2'>
+                                <Form.Label className='fw-bold text-nowrap mb-0 me-2 d-flex align-items-center' style={{height: '38px'}}>{actualText.labelPrompt}</Form.Label>
+                                <Form.Control 
+                                    type='number' 
+                                    min={currentQuestion.minValue} 
+                                    max={currentQuestion.maxValue} 
+                                    onWheel={(someEvent) => someEvent.target.blur()}
+                                    {...register(`submittedScores.${questionIndex}`, {
+                                        required: actualText.errorMessage, 
+                                        min: currentQuestion.minValue, 
+                                        max: currentQuestion.maxValue
+                                    })}
+                                    onBlur={(someEvent) => {
+                                        let targetValue = Number(someEvent.target.value); 
+                                        if (targetValue < currentQuestion.minValue) setValue(`submittedScores.${questionIndex}`, currentQuestion.minValue);
+                                        if (targetValue > currentQuestion.maxValue) setValue(`submittedScores.${questionIndex}`, currentQuestion.maxValue);
+                                    }}
+                                />
+                            </div>
                             {errors.submittedScores?.[questionIndex] && (
-                                <p className='text-danger'>
+                                <div className='text-danger mt-2 fw-semibold fs-italic'>
                                     {errors.submittedScores[questionIndex].message}
-                                </p>
+                                </div>
                             )}
                         </Form.Group>
                     </Card.Body>
             </Card> 
             ))}
-            <div className='d-grid gap-2'><Button variant='success' type='submit'>Submit</Button></div>
+            <div className='d-grid gap-2'><Button variant='success' type='submit'>{actualText.submitMsg}</Button></div>
         </Form>
 
     </div>
