@@ -42,23 +42,23 @@ const LoginPage = () => {
 
     const actualText = pageText[currentLanguage]
 
-    return <div className='d-grid gap-2'>
+    return <div>
         <Card className='text-center mb-4'>
             <Card.Header as='h1' className='display-5 fw-bold'>{actualText.mainTitle}</Card.Header>
         </Card>
 
         <Form onSubmit={handleSubmit(onSubmit)}>
-            <Form.Group className='mb-3'>
-                <div className='d-flex align-items-center gap-2'>
-                    <Form.Label className='fw-bold text-nowrap mb-0 me-2 d-flex align-items-center' style={{height: '38px'}}>{actualText.theUsername}</Form.Label>
+            <Form.Group className='mb-3 px-4'>
+                <div className="d-flex align-items-center">
+                    <Form.Label className='fw-bold text-nowrap d-flex align-items-center mb-0 me-2' style={{height: '38px'}}>{actualText.theUsername}</Form.Label>
                     <Form.Control type='email' placeholder={actualText.userPlaceholder} {...register('username', {required: true})} />
                 </div>
             </Form.Group>
 
-            <Form.Group className='mb-3'>
-                <div className='d-flex align-items-center gap-2'>
-                <Form.Label className='fw-bold text-nowrap mb-0 me-2 d-flex align-items-center' style={{height: '38px'}}>{actualText.thePassword}</Form.Label>
-                <Form.Control type='password' placeholder={actualText.thePassword} {...register('password', {required: true})} />
+            <Form.Group className='mb-3 px-4'>
+                <div className="d-flex align-items-center">
+                    <Form.Label className='fw-bold text-nowrap d-flex align-items-center mb-0 me-2' style={{height: '38px'}}>{actualText.thePassword}</Form.Label>
+                    <Form.Control type='password' placeholder={actualText.thePassword} {...register('password', {required: true})} />
                 </div>
             </Form.Group>
 
