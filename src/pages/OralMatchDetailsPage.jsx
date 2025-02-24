@@ -12,7 +12,7 @@ const OralMatchDetailsPage = () => {
 
     const { currentLanguage, resetLanguage } = useContext(LanguageContext);
     const { currentRole, assignRole } = useContext(RoleContext);
-    const { register, handleSubmit, formState: { errors } } = useForm();  
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm();  
     const { matchID } = useParams(); 
     const performNavigation = useNavigate(); 
 

@@ -8,13 +8,18 @@ import { RoleContext } from "../contexts/RoleContext";
 
 import questionText from '../data/writtenRubric';
 
-const WrittenMatchDetailsPage = () => { 
+const WrittenDetailsPage = () => { 
 
     const { currentLanguage, resetLanguage } = useContext(LanguageContext);
     const { currentRole, assignRole } = useContext(RoleContext); 
-    const { register, handleSubmit, formState: { errors } } = useForm(); 
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm(); 
     const { memorandumID } = useParams(); 
     const performNavigation = useNavigate(); 
+
+    //Translate memorandum
+    //Translate Enter Score
+    //Translate Error Message
+    //Translate Submit
 
     const actualFormText = questionText[currentLanguage]; 
 
@@ -32,13 +37,22 @@ const WrittenMatchDetailsPage = () => {
             handleSignOut(); 
         }
     }, [currentRole]);
+
+    const onSubmit = (someData) => {
+        let totalScore = 0; 
+        (someData.submittedScores).forEach( (currentScore) => {
+            totalScore = totalScore + Number(currentScore); 
+        })
+        console.log(`totalScore is ${totalScore}`);
+        performNavigation('/writtencomp/judge');
+    }
         
     return <div>
         <Card className='text-center mb-4'>
             <Card.Header as='h1' className='display-5 fw-bold'>Memorandum {memorandumID}</Card.Header>
         </Card>
 
-        <Form>
+        <Form onSubmit={handleSubmit(onSubmit)}>
             {actualFormText.map( (currentQuestion, questionIndex) => (
             <Card key={questionIndex} className='mb-4'>
                     <Card.Body>
@@ -56,14 +70,22 @@ const WrittenMatchDetailsPage = () => {
                                 min={currentQuestion.minValue} 
                                 max={currentQuestion.maxValue} 
                                 onWheel={(someEvent) => someEvent.target.blur()}
-                                /* ADD RIGISTER HERE */
+                                {...register(`submittedScores.${questionIndex}`, {
+                                    required: 'Score is required', 
+                                    min: currentQuestion.minValue, 
+                                    max: currentQuestion.maxValue
+                                })}
                                 onBlur={(someEvent) => {
                                     let targetValue = Number(someEvent.target.value); 
-                                    if (targetValue < currentQuestion.minValue) someEvent.target.value = currentQuestion.minValue; 
-                                    if (targetValue > currentQuestion.maxValue) someEvent.target.value = currentQuestion.maxValue; 
+                                    if (targetValue < currentQuestion.minValue) setValue(`submittedScores.${questionIndex}`, currentQuestion.minValue);
+                                    if (targetValue > currentQuestion.maxValue) setValue(`submittedScores.${questionIndex}`, currentQuestion.maxValue);
                                 }}
                             />
-
+                            {errors.submittedScores?.[questionIndex] && (
+                                <p className='text-danger'>
+                                    {errors.submittedScores[questionIndex].message}
+                                </p>
+                            )}
                         </Form.Group>
                     </Card.Body>
             </Card> 
@@ -74,4 +96,4 @@ const WrittenMatchDetailsPage = () => {
     </div>
 };
 
-export default WrittenMatchDetailsPage; 
+export default WrittenDetailsPage; 
