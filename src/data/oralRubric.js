@@ -11,11 +11,11 @@ const questionText = {
                     'Use of case law and secondary sources'  
                 ],
                 currentTemplate: [
-                    'Poor (0-6)',
-                    'Below Average (7-12)',
-                    'Average (13-18)',
+                    'Exceptional (25-30)',
                     'Above Average (19-24)',
-                    'Exceptional (25-30)' 
+                    'Average (13-18)',
+                    'Below Average (7-12)',
+                    'Poor (0-6)' 
                 ]
             },
             {
@@ -29,12 +29,13 @@ const questionText = {
                     'Claim of relief'  
                 ],
                 currentTemplate: [
-                    'Poor (0-4)',
-                    'Below Average (5-8)',
-                    'Average (9-12)',
+                    'Exceptional (17-20)',
                     'Above Average (13-16)',
-                    'Exceptional (17-20)' 
+                    'Average (9-12)',
+                    'Below Average (5-8)',
+                    'Poor (0-4)' 
                 ]
+    
             },
             {
                 currentCategory: 'General Evaluation (0-15)', 
@@ -46,11 +47,11 @@ const questionText = {
                     'Originality'
                 ],
                 currentTemplate: [
-                    'Poor (0-3)',
-                    'Below Average (4-6)',
-                    'Average (7-9)',
+                    'Exceptional (13-15)',
                     'Above Average (10-12)',
-                    'Exceptional (13-15)' 
+                    'Average (7-9)',
+                    'Below Average (4-6)',
+                    'Poor (0-3)' 
                 ]
             },
             {
@@ -63,11 +64,11 @@ const questionText = {
                     'Ability to anticipate the opponent\'s arguments'
                 ],
                 currentTemplate: [
-                    'Poor (0-2)',
-                    'Below Average (3-4)',
-                    'Average (5-6)',
+                    'Exceptional (9-10)',
                     'Above Average (7-8)',
-                    'Exceptional (9-10)' 
+                    'Average (5-6)',
+                    'Below Average (3-4)',
+                    'Poor (0-2)' 
                 ]
             },
             {
@@ -76,16 +77,16 @@ const questionText = {
                 maxValue: 10,
                 currentCriteria: [
                     'Ability to respond to the judges\'s questions',
-                    'Did they really respond to or evade the questions?',
-                    'Throughness in answering the questions presented',
+                    'Did they respond clearly or avoid the question?',
+                    'Thoroughness in answering the questions presented',
                     'Ability to deal with hypothetical questions'
                 ],
                 currentTemplate: [
-                    'Poor (0-2)',
-                    'Below Average (3-4)',
-                    'Average (5-6)',
+                    'Exceptional (9-10)',
                     'Above Average (7-8)',
-                    'Exceptional (9-10)' 
+                    'Average (5-6)',
+                    'Below Average (3-4)',
+                    'Poor (0-2)' 
                 ]
             },
             {
@@ -99,15 +100,15 @@ const questionText = {
                     'Body language'
                 ],
                 currentTemplate: [
-                    'Poor (0-3)',
-                    'Below Average (4-6)',
-                    'Average (7-9)',
+                    'Exceptional (13-15)',
                     'Above Average (10-12)',
-                    'Exceptional (13-15)' 
+                    'Average (7-9)',
+                    'Below Average (4-6)',
+                    'Poor (0-3)' 
                 ]
             }
         ],
-    ES: [
+        ES: [
             {
                 currentCategory: 'Argumentos Jurídicos (0-30)', 
                 minValue: 0, 
@@ -119,11 +120,11 @@ const questionText = {
                     'Uso de jurisprudencia y fuentes secundarias'  
                 ],
                 currentTemplate: [
-                    'Deficiente (0-6)',
-                    'Por debajo del promedio (7-12)',
-                    'Promedio (13-18)',
+                    'Excepcional (25-30)',
                     'Por encima del promedio (19-24)',
-                    'Excepcional (25-30)' 
+                    'Promedio (13-18)',
+                    'Por debajo del promedio (7-12)',
+                    'Deficiente (0-6)' 
                 ]
             },
             {
@@ -137,11 +138,11 @@ const questionText = {
                     'Reclamación de reparación'  
                 ],
                 currentTemplate: [
-                    'Deficiente (0-4)',
-                    'Por debajo del promedio (5-8)',
-                    'Promedio (9-12)',
+                    'Excepcional (17-20)',
                     'Por encima del promedio (13-16)',
-                    'Excepcional (17-20)' 
+                    'Promedio (9-12)',
+                    'Por debajo del promedio (5-8)',
+                    'Deficiente (0-4)' 
                 ]
             },
             {
@@ -154,11 +155,11 @@ const questionText = {
                     'Originalidad'
                 ],
                 currentTemplate: [
-                    'Deficiente (0-3)',
-                    'Por debajo del promedio (4-6)',
-                    'Promedio (7-9)',
+                    'Excepcional (13-15)',
                     'Por encima del promedio (10-12)',
-                    'Excepcional (13-15)' 
+                    'Promedio (7-9)',
+                    'Por debajo del promedio (4-6)',
+                    'Deficiente (0-3)' 
                 ]
             },
             {
@@ -171,11 +172,11 @@ const questionText = {
                     'Capacidad para anticipar los argumentos del oponente'
                 ],
                 currentTemplate: [
-                    'Deficiente (0-2)',
-                    'Por debajo del promedio (3-4)',
-                    'Promedio (5-6)',
+                    'Excepcional (9-10)',
                     'Por encima del promedio (7-8)',
-                    'Excepcional (9-10)' 
+                    'Promedio (5-6)',
+                    'Por debajo del promedio (3-4)',
+                    'Deficiente (0-2)' 
                 ]
             },
             {
@@ -184,20 +185,20 @@ const questionText = {
                 maxValue: 10,
                 currentCriteria: [
                     'Capacidad para responder a las preguntas de los jueces',
-                    '¿Realmente respondieron o evadieron las preguntas?',
+                    '¿Respondieron claramente o evitaron la pregunta?',
                     'Profundidad en las respuestas presentadas',
                     'Capacidad para abordar preguntas hipotéticas'
                 ],
                 currentTemplate: [
-                    'Deficiente (0-2)',
-                    'Por debajo del promedio (3-4)',
-                    'Promedio (5-6)',
+                    'Excepcional (9-10)',
                     'Por encima del promedio (7-8)',
-                    'Excepcional (9-10)' 
+                    'Promedio (5-6)',
+                    'Por debajo del promedio (3-4)',
+                    'Deficiente (0-2)' 
                 ]
             },
             {
-                currentCategory: 'Expresión Oral (0-15)', 
+                currentCategory: 'Desempeño Oral (0-15)', 
                 minValue: 0, 
                 maxValue: 15,
                 currentCriteria: [
@@ -207,15 +208,15 @@ const questionText = {
                     'Lenguaje corporal'
                 ],
                 currentTemplate: [
-                    'Deficiente (0-3)',
-                    'Por debajo del promedio (4-6)',
-                    'Promedio (7-9)',
+                    'Excepcional (13-15)',
                     'Por encima del promedio (10-12)',
-                    'Excepcional (13-15)' 
+                    'Promedio (7-9)',
+                    'Por debajo del promedio (4-6)',
+                    'Deficiente (0-3)' 
                 ]
             }
         ],
-    POR: [
+        POR: [
             {
                 currentCategory: 'Argumentação Jurídica (0-30)', 
                 minValue: 0, 
@@ -227,11 +228,11 @@ const questionText = {
                     'Uso de jurisprudência e fontes secundárias'  
                 ],
                 currentTemplate: [
-                    'Fraco (0-6)',
-                    'Abaixo da média (7-12)',
-                    'Médio (13-18)',
+                    'Excepcional (25-30)',
                     'Acima da média (19-24)',
-                    'Excepcional (25-30)' 
+                    'Médio (13-18)',
+                    'Abaixo da média (7-12)',
+                    'Fraco (0-6)' 
                 ]
             },
             {
@@ -245,11 +246,11 @@ const questionText = {
                     'Reivindicação de reparação'  
                 ],
                 currentTemplate: [
-                    'Fraco (0-4)',
-                    'Abaixo da média (5-8)',
-                    'Médio (9-12)',
+                    'Excepcional (17-20)',
                     'Acima da média (13-16)',
-                    'Excepcional (17-20)' 
+                    'Médio (9-12)',
+                    'Abaixo da média (5-8)',
+                    'Fraco (0-4)' 
                 ]
             },
             {
@@ -262,11 +263,11 @@ const questionText = {
                     'Originalidade'
                 ],
                 currentTemplate: [
-                    'Fraco (0-3)',
-                    'Abaixo da média (4-6)',
-                    'Médio (7-9)',
+                    'Excepcional (13-15)',
                     'Acima da média (10-12)',
-                    'Excepcional (13-15)' 
+                    'Médio (7-9)',
+                    'Abaixo da média (4-6)',
+                    'Fraco (0-3)' 
                 ]
             },
             {
@@ -279,11 +280,11 @@ const questionText = {
                     'Capacidade de antecipar os argumentos do oponente'
                 ],
                 currentTemplate: [
-                    'Fraco (0-2)',
-                    'Abaixo da média (3-4)',
-                    'Médio (5-6)',
+                    'Excepcional (9-10)',
                     'Acima da média (7-8)',
-                    'Excepcional (9-10)' 
+                    'Médio (5-6)',
+                    'Abaixo da média (3-4)',
+                    'Fraco (0-2)' 
                 ]
             },
             {
@@ -292,20 +293,20 @@ const questionText = {
                 maxValue: 10,
                 currentCriteria: [
                     'Capacidade de responder às perguntas dos juízes',
-                    'Eles realmente responderam ou evitaram as perguntas?',
+                    'Responderam claramente ou evitaram a pergunta?',
                     'Profundidade nas respostas apresentadas',
                     'Capacidade de lidar com perguntas hipotéticas'
                 ],
                 currentTemplate: [
-                    'Fraco (0-2)',
-                    'Abaixo da média (3-4)',
-                    'Médio (5-6)',
+                    'Excepcional (9-10)',
                     'Acima da média (7-8)',
-                    'Excepcional (9-10)' 
+                    'Médio (5-6)',
+                    'Abaixo da média (3-4)',
+                    'Fraco (0-2)' 
                 ]
             },
             {
-                currentCategory: 'Expressão Oral (0-15)', 
+                currentCategory: 'Desempenho Oral (0-15)', 
                 minValue: 0, 
                 maxValue: 15,
                 currentCriteria: [
@@ -315,11 +316,11 @@ const questionText = {
                     'Linguagem corporal'
                 ],
                 currentTemplate: [
-                    'Fraco (0-3)',
-                    'Abaixo da média (4-6)',
-                    'Médio (7-9)',
+                    'Excepcional (13-15)',
                     'Acima da média (10-12)',
-                    'Excepcional (13-15)' 
+                    'Médio (7-9)',
+                    'Abaixo da média (4-6)',
+                    'Fraco (0-3)' 
                 ]
             }
         ]

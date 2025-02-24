@@ -10,9 +10,9 @@ import questionText from '../data/oralRubric';
 
 const OralMatchDetailsPage = () => { 
 
-    const { currentLanguage, resetLanguage } = useContext(LanguageContext);
-    const { currentRole, assignRole } = useContext(RoleContext);
-    const { register, handleSubmit, formState: { errors }, setValue, trigger } = useForm({mode: 'onChange'});  
+    const { currentLanguage } = useContext(LanguageContext);
+    const { currentRole } = useContext(RoleContext);
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm();  
     const performNavigation = useNavigate(); 
 
     const [openPanel, setOpenPanel] = useState(null);
@@ -50,7 +50,7 @@ const OralMatchDetailsPage = () => {
             })
             console.log(`${currentParticipant} made a total score of ${totalScore}`);
         })
-        //performNavigation('/oralcomp/judge');
+        performNavigation('/oralcomp/judge');
     }
         
     return <div className='d-grid gap-2'>
@@ -88,7 +88,7 @@ const OralMatchDetailsPage = () => {
                                             ))}
                                         </ListGroup>
 
-                                        <Card.Subtitle className='mt-3 mb-2'>{actualText.evaluationMsg}</Card.Subtitle>
+                                        <Card.Subtitle className='mt-3 mb-2'>{actualText.templateMsg}</Card.Subtitle>
                                         <ListGroup variant='flush'>
                                             {currentQuestion.currentTemplate.map( (differentScores, scoreIndex) => (
                                                 <ListGroup.Item key={scoreIndex}>{differentScores}</ListGroup.Item>
@@ -110,8 +110,8 @@ const OralMatchDetailsPage = () => {
                                                     })} 
                                                     onBlur={(someEvent) => {
                                                         let targetValue = Number(someEvent.target.value);
-                                                        if (targetValue < currentQuestion.minValue) setValue(`submittedScores.${currentParticipant}.${questionIndex}`, currentQuestion.minValue); 
-                                                        if (targetValue > currentQuestion.maxValue) setValue(`submittedScores.${currentParticipant}.${questionIndex}`, currentQuestion.maxValue);   
+                                                        if (targetValue < currentQuestion.minValue) setValue(`submittedScores.${currentParticipant}.${questionIndex}`, currentQuestion.minValue, {shouldValidate: true}); 
+                                                        if (targetValue > currentQuestion.maxValue) setValue(`submittedScores.${currentParticipant}.${questionIndex}`, currentQuestion.maxValue, {shouldValidate: true});   
                                                     }}
                                                 />
                                             </div>
