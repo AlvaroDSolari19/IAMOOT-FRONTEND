@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'; 
-import { Button } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 
 import { LanguageContext } from '../contexts/LanguageContext';
@@ -15,7 +15,10 @@ const HomePage = () => {
     }
 
     return <div className='d-grid gap-2'>
-        <h1>Language Selection</h1>
+        <Card className='text-center mb-4'>
+            <Card.Header as='h1' className='display-5 fw-bold'>Language Selection</Card.Header>
+        </Card>
+
         <Button variant='primary' onClick={() => (performLanguageChange('EN', '/login'))}>English</Button>
         <Button variant='primary' onClick={() => (performLanguageChange('ES', '/login'))}>Español</Button>
         <Button variant='primary' onClick={() => (performLanguageChange('POR', '/login'))}>Português</Button>

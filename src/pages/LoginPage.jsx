@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'; 
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom'; 
-import { Button, Form} from 'react-bootstrap';
+import { Button, Card, Form} from 'react-bootstrap';
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from '../contexts/RoleContext'; 
@@ -34,29 +34,35 @@ const LoginPage = () => {
         performNavigation('/dashboard')
     };
 
-    const formLabels = {
+    const pageText = {
         EN: {mainTitle: 'Access the Platform', theUsername: 'Username', userPlaceholder: 'Enter email', thePassword: 'Password', theButton: 'Sign In'},
         ES: {mainTitle: 'Acceso a la Plataforma', theUsername: 'Usuario', userPlaceholder: 'Ingrese el correo electronico', thePassword: 'Contraseña', theButton: 'Iniciar Sesion'}, 
         POR: {mainTitle: 'Acesse a Plataforma', theUsername: 'Usuário', userPlaceholder: 'Insira o email', thePassword: 'Senha', theButton: 'Entrar'}
     };
 
-    const actualLabels = formLabels[currentLanguage]
+    const actualText = pageText[currentLanguage]
 
-    return <div>
-        <h1>{actualLabels.mainTitle}</h1>
+    return <div className='d-grid gap-2'>
+        <Card className='text-center mb-4'>
+            <Card.Header as='h1' className='display-5 fw-bold'>{actualText.mainTitle}</Card.Header>
+        </Card>
 
         <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className='mb-3'>
-                <Form.Label>{actualLabels.theUsername}</Form.Label>
-                <Form.Control type='email' placeholder={actualLabels.userPlaceholder} {...register('username', {required: true})} />
+                <div className='d-flex align-items-center gap-2'>
+                    <Form.Label className='fw-bold text-nowrap mb-0 me-2 d-flex align-items-center' style={{height: '38px'}}>{actualText.theUsername}</Form.Label>
+                    <Form.Control type='email' placeholder={actualText.userPlaceholder} {...register('username', {required: true})} />
+                </div>
             </Form.Group>
 
             <Form.Group className='mb-3'>
-                <Form.Label>{actualLabels.thePassword}</Form.Label>
-                <Form.Control type='password' placeholder={actualLabels.thePassword} {...register('password', {required: true})} />
+                <div className='d-flex align-items-center gap-2'>
+                <Form.Label className='fw-bold text-nowrap mb-0 me-2 d-flex align-items-center' style={{height: '38px'}}>{actualText.thePassword}</Form.Label>
+                <Form.Control type='password' placeholder={actualText.thePassword} {...register('password', {required: true})} />
+                </div>
             </Form.Group>
 
-            <Button variant='primary' type='submit'>{actualLabels.theButton}</Button>
+            <div className='d-grid gap-2'><Button variant='primary' type='submit'>{actualText.theButton}</Button></div>
         </Form>
     </div>
 };
