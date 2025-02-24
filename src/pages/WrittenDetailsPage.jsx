@@ -16,11 +16,6 @@ const WrittenDetailsPage = () => {
     const { memorandumID } = useParams(); 
     const performNavigation = useNavigate(); 
 
-    //Translate memorandum
-    //Translate Enter Score
-    //Translate Error Message
-    //Translate Submit
-
     const pageText = {
         EN: {pageTitle: 'Memorandum', labelPrompt: 'Enter score', errorMessage: 'Please enter a value for the above field', submitMsg: 'Submit score'}, 
         ES: {pageTitle: "Memorándum", labelPrompt: "Ingrese puntuación", errorMessage: "Por favor, ingrese un valor para el campo anterior", submitMsg: "Registrar puntuación"},
