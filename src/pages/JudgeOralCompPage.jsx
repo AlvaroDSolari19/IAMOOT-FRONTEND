@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
-import { Button, Table } from 'react-bootstrap'; 
+import { Button, Card, Table } from 'react-bootstrap'; 
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
@@ -35,7 +35,10 @@ const JudgeOralCompPage = () => {
     }, [currentRole]);
     
     return <div className='d-grid gap-2'>
-        <h1>{actualText.welcomeMsg}</h1>
+        <Card className='text-center mb-3'>
+            <Card.Header as='h1' className='display-5 fw-bold'>{actualText.welcomeMsg}</Card.Header>
+        </Card>
+
         <Table striped bordered hover>
             <thead>
                 <tr>
@@ -52,6 +55,7 @@ const JudgeOralCompPage = () => {
                 </tr>
             </tbody>
         </Table>
+        
         <Button variant='danger' onClick={handleSignOut}>{actualText.buttonText}</Button>
     </div>
 
