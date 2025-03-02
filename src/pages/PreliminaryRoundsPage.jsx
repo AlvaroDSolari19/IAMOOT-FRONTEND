@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
-import { Button, Table } from 'react-bootstrap'; 
+import { Button, Card, Table } from 'react-bootstrap'; 
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
@@ -64,14 +64,20 @@ const PreliminaryRoundsPage = () => {
         </div>
     }
     
-    return <div className='d-grid gap-2'>
-        <h1>Preliminary Rounds</h1>
+    return <div>
+        
+        <Card className='text-center mb-3'>
+            <Card.Header as='h1' className='display-5 fw-bold'>Preliminary Rounds</Card.Header>
+        </Card>
         <p>The schedule would display here ... We need to discuss the format and what it includes.</p>
         <p>So far I'm assuming the name of the teams participating on the match, location, and time.</p>
         <p>Regarding the format, I'm thinking a list perhaps. Upon clicking it, it opens another page where you enter the winner.</p>
-        <Button variant='primary' onClick={() => {setShowResults((previousState) => !previousState)}}>{showResults ? 'Hide Results' : 'Show Results'}</Button>
-        {renderContent()}
-        <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
+        
+        <div className='d-grid gap-2'>
+            <Button variant='primary' onClick={() => {setShowResults((previousState) => !previousState)}}>{showResults ? 'Hide Results' : 'Show Results'}</Button>
+            {renderContent()}
+            <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
+        </div>
     </div>
 
 };

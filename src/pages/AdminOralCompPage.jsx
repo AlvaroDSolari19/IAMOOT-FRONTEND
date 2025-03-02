@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
-import { Button } from 'react-bootstrap'; 
+import { Button, Card } from 'react-bootstrap'; 
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
@@ -26,11 +26,15 @@ const AdminOralCompPage = () => {
         }
     }, [currentRole]);
     
-    return <div className='d-grid gap-2'>
-        <h1>Admin Oral Competition</h1>
-        <Button variant='primary' onClick={() => {performNavigation('/individualscores')}}>Individual Scores</Button>
-        <Button variant='primary' onClick={() => {performNavigation('/oralrounds')}}>Oral Rounds</Button>
-        <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
+    return <div>
+        <Card className='text-center mb-3'>
+            <Card.Header as='h1' className='display-5 fw-bold'>Admin Oral Competition</Card.Header>
+        </Card>
+        <div className='d-grid gap-2'>
+            <Button variant='primary' onClick={() => {performNavigation('/individualscores')}}>Individual Scores</Button>
+            <Button variant='primary' onClick={() => {performNavigation('/oralrounds')}}>Oral Rounds</Button>
+            <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
+        /</div>
     </div>
 
 };

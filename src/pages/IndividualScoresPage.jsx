@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
-import { Button, Table } from 'react-bootstrap'; 
+import { Button, Card, Table } from 'react-bootstrap'; 
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
@@ -66,13 +66,17 @@ const IndividualScoresPage = () => {
         </div>
     }
     
-    return <div className='d-grid gap-2'>
-        <h1>Individual Oral Competition</h1>
-        <Button variant='primary' onClick={() => {handleCategorySelection('Individual English Rankings')}}>English Speakers</Button>
-        <Button variant='primary' onClick={() => {handleCategorySelection('Individual Spanish Rankings')}}>Spanish Speakers</Button>
-        <Button variant='primary' onClick={() => {handleCategorySelection('Individual Portuguese Rankings')}}>Portuguese Speakers</Button>
-        {renderContent()}
-        <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
+    return <div>
+        <Card className='text-center mb-3'>
+            <Card.Header as='h1' className='display-5 fw-bold'>Individual Oral Competition</Card.Header>
+        </Card>
+        <div className='d-grid gap-2'>
+            <Button variant='primary' onClick={() => {handleCategorySelection('Individual English Rankings')}}>English Speakers</Button>
+            <Button variant='primary' onClick={() => {handleCategorySelection('Individual Spanish Rankings')}}>Spanish Speakers</Button>
+            <Button variant='primary' onClick={() => {handleCategorySelection('Individual Portuguese Rankings')}}>Portuguese Speakers</Button>
+            {renderContent()}
+            <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
+        </div>
     </div>
 
 };

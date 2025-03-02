@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
-import { Button, Table } from 'react-bootstrap'; 
+import { Button, Card, Table } from 'react-bootstrap'; 
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
@@ -108,15 +108,20 @@ const SemiFinalRoundsPage = () => {
         </div>
     }
     
-    return <div className='d-grid gap-2'>
-        <h1>Semifinal Rounds</h1>
-        <Button variant='primary' onClick={() => {setDisplayRound(true)}}>Generate Schedule</Button>
-        {renderRoundTable()}
-        <Button variant='primary' onClick={() => {setDisplayStates(true)}}>State Rankings</Button>
-        {renderStateTable()}
-        <Button variant='primary' onClick={() => {setDisplayVictims(true)}}>Victim Rankings</Button>
-        {renderVictimTable()}
-        <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
+    return <div>
+        <Card className='text-center mb-3'>
+            <Card.Header as='h1' className='display-5 fw-bold'>Semifinal Rounds</Card.Header>
+        </Card>
+
+        <div className='d-grid gap-2'>
+            <Button variant='primary' onClick={() => {setDisplayRound(true)}}>Generate Schedule</Button>
+            {renderRoundTable()}
+            <Button variant='primary' onClick={() => {setDisplayStates(true)}}>State Rankings</Button>
+            {renderStateTable()}
+            <Button variant='primary' onClick={() => {setDisplayVictims(true)}}>Victim Rankings</Button>
+            {renderVictimTable()}
+            <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
+        </div>
     </div>
 
 };
