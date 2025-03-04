@@ -43,7 +43,7 @@ const LoginPage = () => {
     const actualText = pageText[currentLanguage]
 
     return <div>
-        <Card className='text-center mb-4'>
+        <Card className='text-center mb-3'>
             <Card.Header as='h1' className='display-5 fw-bold'>{actualText.mainTitle}</Card.Header>
         </Card>
 

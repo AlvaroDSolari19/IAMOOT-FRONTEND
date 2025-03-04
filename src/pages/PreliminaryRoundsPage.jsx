@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
-import { Button, Card, Table } from 'react-bootstrap'; 
+import { Button, ButtonGroup, Card, Table } from 'react-bootstrap'; 
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
@@ -12,6 +12,7 @@ const PreliminaryRoundsPage = () => {
     const performNavigation = useNavigate(); 
 
     const [showResults, setShowResults] = useState(false); 
+    const [selectedDay, setSelectedDay] = useState(); 
 
     const handleSignOut = () => {
         resetLanguage(); 
@@ -27,6 +28,38 @@ const PreliminaryRoundsPage = () => {
             handleSignOut(); 
         }
     }, [currentRole]);
+
+    const renderRoundsPerDay = () => {
+        if (!selectedDay){
+            return null; 
+        }
+
+        /* Retrieve an Array with all the matches that will take place on selectedDay. Then use that to fill the content of the table. 
+         * However, because we do not have an array for now with the matchups yet, we will just display a table with a single record for now. */
+
+        return <div>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <td>Match ID</td>
+                        <td>Matchup</td>
+                        <td>Date and Time</td>
+                        <td>Location</td>
+                        <td>Winner</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr onClick={() => performNavigation('/oralrounds/prelims/1')} style={{cursor: 'pointer'}}>
+                        <td>Match 1</td>
+                        <td>Team 1 vs Team 2</td>
+                        <td>{selectedDay} at 4:00 PM</td>
+                        <td>Room 403</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </Table>
+        </div>
+    }
 
     const renderContent = () => {
         if (!showResults){
@@ -69,9 +102,15 @@ const PreliminaryRoundsPage = () => {
         <Card className='text-center mb-3'>
             <Card.Header as='h1' className='display-5 fw-bold'>Preliminary Rounds</Card.Header>
         </Card>
-        <p>The schedule would display here ... We need to discuss the format and what it includes.</p>
-        <p>So far I'm assuming the name of the teams participating on the match, location, and time.</p>
-        <p>Regarding the format, I'm thinking a list perhaps. Upon clicking it, it opens another page where you enter the winner.</p>
+
+        <div className='d-flex justify-content-center mb-3'>
+            <ButtonGroup>
+                <Button variant={selectedDay === 'Monday' ? 'primary': 'outline-primary'} onClick={() => setSelectedDay('Monday')}>Monday</Button>
+                <Button variant={selectedDay === 'Tuesday' ? 'primary': 'outline-primary'} onClick={() => setSelectedDay('Tuesday')}>Tuesday</Button>
+                <Button variant={selectedDay === 'Wednesday' ? 'primary': 'outline-primary'} onClick={() => setSelectedDay('Wednesday')}>Wednesday</Button>
+            </ButtonGroup>
+        </div>
+        {renderRoundsPerDay()}
         
         <div className='d-grid gap-2'>
             <Button variant='primary' onClick={() => {setShowResults((previousState) => !previousState)}}>{showResults ? 'Hide Results' : 'Show Results'}</Button>
