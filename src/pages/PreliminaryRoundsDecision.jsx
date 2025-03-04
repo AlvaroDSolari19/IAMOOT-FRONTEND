@@ -10,7 +10,7 @@ const PreliminaryRoundsDecision = () => {
 
     const { resetLanguage } = useContext(LanguageContext);
     const { currentRole, assignRole } = useContext(RoleContext); 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm(); 
+    const { register, handleSubmit, formState: { errors } } = useForm(); 
     const performNavigation = useNavigate(); 
 
     const handleSignOut = () => {
