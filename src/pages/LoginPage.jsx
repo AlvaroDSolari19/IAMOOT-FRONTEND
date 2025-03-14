@@ -35,9 +35,9 @@ const LoginPage = () => {
     };
 
     const pageText = {
-        EN: {mainTitle: 'Access the Platform', theUsername: 'Username', userPlaceholder: 'Enter email', thePassword: 'Password', theButton: 'Sign In'},
-        ES: {mainTitle: 'Acceso a la Plataforma', theUsername: 'Usuario', userPlaceholder: 'Ingrese el correo electronico', thePassword: 'Contraseña', theButton: 'Iniciar Sesion'}, 
-        POR: {mainTitle: 'Acesse a Plataforma', theUsername: 'Usuário', userPlaceholder: 'Insira o email', thePassword: 'Senha', theButton: 'Entrar'}
+        EN: {mainTitle: 'IAMOOT 2025 - Access the Platform', theUsername: 'Username', userPlaceholder: 'Enter email', thePassword: 'Password', theButton: 'Sign In'},
+        ES: {mainTitle: 'IAMOOT 2025 - Acceso a la Plataforma', theUsername: 'Usuario', userPlaceholder: 'Ingrese el correo electronico', thePassword: 'Contraseña', theButton: 'Iniciar Sesion'}, 
+        POR: {mainTitle: 'IAMOOOT 2025 - Acesse a Plataforma', theUsername: 'Usuário', userPlaceholder: 'Insira o email', thePassword: 'Senha', theButton: 'Entrar'}
     };
 
     const actualText = pageText[currentLanguage]
