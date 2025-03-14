@@ -60,7 +60,7 @@ const DashboardPage = () => {
                     <Card.Header as='h1' className='display-6 fw-bold'>{actualText.mainTitle}</Card.Header>
                 </Card>
                 <Image src={selectedImage} alt='' fluid className='mx-auto d-block'/>
-                <p>{actualText.descriptionText}</p>
+                <p className='mx-auto px-4 w-75 mb-0 text-center'>{actualText.descriptionText}</p>
                 <Button variant='primary' onClick={() => {performNavigation('/oralcomp/judge')}}>{actualText.oralComp}</Button>
                 <Button variant='primary' onClick={() => {performNavigation('/writtencomp/judge')}}>{actualText.writtenComp}</Button>
                 <Button variant='danger' onClick={handleSignOut}>{actualText.buttonText}</Button>
