@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom'; 
 import { Button, Card, Form} from 'react-bootstrap';
+import axios from 'axios';
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from '../contexts/RoleContext'; 
@@ -13,25 +14,32 @@ const LoginPage = () => {
     const performNavigation = useNavigate(); 
     const { register, handleSubmit, formState: { errors }, } = useForm();
     
-    /****************************************************
-     * REVIEW LATER ONCE WE HAVE LOGGING IN INFORMATION *
-     ****************************************************/
-    const onSubmit = (someData) => {
-        const roleMapping = {
-            'judge@email.com': 'Judge',
-            'admin@email.com': 'Admin', 
-            'volunteer@email.com': 'Volunteer'
-        };
+    const onSubmit = async (someData) => {
+        
+        try {
+            /* Sends an object to the route /api/login with userEmail and userPass variables. 
+             * userEmail will contain someData.username which is what was typed for the user. 
+             * userPass will contain someData.password which is what was typed for the password. 
+             * It will wait for the /api/login to send a response, which is stored in the variable theResponse. 
+             * The contents of the response are configured in the backend but this is how the client and server to communicate. */
+            
+            const res = await axios.post('http://localhost:3000/api/login', {
+                userEmail: someData.username,
+                userPass: someData.password
+            })
 
-        const currentRole = roleMapping[someData.username]; 
+            /* theResponse.data contains the information sent from the backend as it will be configured on the /api/login route. */
+            const { currentName, currentRole } = res.data;
 
-        if (!currentRole){
-            alert('Invalid username or roles not assigned.');
-            return; 
+            sessionStorage.setItem('currentName', currentName);
+            assignRole(currentRole);
+
+            performNavigation('/dashboard'); 
+
+        } catch (err) {
+            alert(`Invalid email or password`); 
+            console.error(err); 
         }
-
-        assignRole(currentRole); 
-        performNavigation('/dashboard')
     };
 
     const pageText = {

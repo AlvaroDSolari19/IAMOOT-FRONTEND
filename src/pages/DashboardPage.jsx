@@ -43,10 +43,12 @@ const DashboardPage = () => {
 
     const renderContentForRole = () => {
 
+        const currentName = sessionStorage.getItem('currentName'); 
+
         if (currentRole === 'Admin'){
             return (<div className='d-grid gap-2'>
                 <Card className='text-center mb-2'>
-                    <Card.Header as='h1' className='display-5 fw-bold'>Welcome Admin</Card.Header>
+                    <Card.Header as='h1' className='display-5 fw-bold'>Welcome {currentName}</Card.Header>
                     <Card.Header as='h1' className='display-6 fw-bold'>Select the Competition</Card.Header>
                 </Card>
                 <Button variant='primary' onClick={() => {performNavigation('/oralcomp/admin')}}>Oral Competition</Button>
@@ -56,7 +58,7 @@ const DashboardPage = () => {
         } else if (currentRole === 'Judge'){
             return (<div className='d-grid gap-2'>
                 <Card className='text-center mb-2'>
-                    <Card.Header as='h1' className='display-5 fw-bold'>{actualText.welcomeMsg} {currentRole}</Card.Header>
+                    <Card.Header as='h1' className='display-5 fw-bold'>{actualText.welcomeMsg} {currentName}</Card.Header>
                     <Card.Header as='h1' className='display-6 fw-bold'>{actualText.mainTitle}</Card.Header>
                 </Card>
                 <Image src={selectedImage} alt='' fluid className='mx-auto d-block'/>
