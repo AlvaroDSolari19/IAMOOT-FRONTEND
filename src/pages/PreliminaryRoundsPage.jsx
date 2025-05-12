@@ -5,14 +5,29 @@ import { Button, ButtonGroup, Card, Table } from 'react-bootstrap';
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
 
+import axios from 'axios'; 
+
 const PreliminaryRoundsPage = () => { 
+
+    const dayToDateMap = {
+        Monday: '2025-05-19', 
+        Tuesday: '2025-05-20', 
+        Wednesday: '2025-05-21'
+    }
+
+    const dateToDayMap = {
+        '2025-05-19': 'Monday', 
+        '2025-05-20': 'Tuesday', 
+        '2025-05-21': 'Wednesday'
+    }
 
     const { resetLanguage } = useContext(LanguageContext);
     const { currentRole, assignRole } = useContext(RoleContext); 
     const performNavigation = useNavigate(); 
 
     const [showResults, setShowResults] = useState(false); 
-    const [selectedDay, setSelectedDay] = useState(); 
+    const [selectedDay, setSelectedDay] = useState();
+    const [matchesForDay, setMatchesForDay] = useState([]); 
 
     const handleSignOut = () => {
         resetLanguage(); 
@@ -29,13 +44,29 @@ const PreliminaryRoundsPage = () => {
         }
     }, [currentRole]);
 
+    /**************************************************************
+     * FETCHES MATCHES FOR A SINGLE DAY WHEN SELECTED DAY CHANGES *
+     **************************************************************/
+    useEffect(() => {
+        if (!selectedDay) return; 
+
+        const fetchMatches = async () => {
+            try {
+                const matchResponse = await axios.get('http://localhost:3000/api/preliminary-matches', {
+                    params: {matchDate: selectedDay }
+                });
+                setMatchesForDay(matchResponse.data); 
+            } catch (error) {
+                console.error('Failed to fetch matches: ', error)
+            }
+        };
+        fetchMatches(); 
+    }, [selectedDay]);
+
     const renderRoundsPerDay = () => {
         if (!selectedDay){
             return null; 
         }
-
-        /* Retrieve an Array with all the matches that will take place on selectedDay. Then use that to fill the content of the table. 
-         * However, because we do not have an array for now with the matchups yet, we will just display a table with a single record for now. */
 
         return <div>
             <Table striped bordered hover>
@@ -49,13 +80,19 @@ const PreliminaryRoundsPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr onClick={() => performNavigation('/oralrounds/prelims/1')} style={{cursor: 'pointer'}}>
-                        <td>Match 1</td>
-                        <td>Team 1 vs Team 2</td>
-                        <td>{selectedDay} at 4:00 PM</td>
-                        <td>Room 403</td>
-                        <td></td>
-                    </tr>
+                    {matchesForDay.length === 0 ? (
+                        <tr><td colSpan={5} className='text-center'>No matches for this day!</td></tr>
+                    ) : (
+                        matchesForDay.map((currentMatch, matchIndex) => (
+                            <tr key={currentMatch.matchID || matchIndex} onClick={() => performNavigation(`/oralrounds/prelims/${currentMatch.matchID}`)} style={{cursor: 'pointer'}}>
+                                <td>{currentMatch.matchID}</td>
+                                <td>{currentMatch.firstTeam} vs {currentMatch.secondTeam}</td>
+                                <td>{dateToDayMap[selectedDay]} at {currentMatch.matchTime}</td>
+                                <td>{currentMatch.roomNumber}</td>
+                                <td></td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
             </Table>
         </div>
@@ -105,9 +142,9 @@ const PreliminaryRoundsPage = () => {
 
         <div className='d-flex justify-content-center mb-3'>
             <ButtonGroup>
-                <Button variant={selectedDay === 'Monday' ? 'primary': 'outline-primary'} onClick={() => setSelectedDay('Monday')}>Monday</Button>
-                <Button variant={selectedDay === 'Tuesday' ? 'primary': 'outline-primary'} onClick={() => setSelectedDay('Tuesday')}>Tuesday</Button>
-                <Button variant={selectedDay === 'Wednesday' ? 'primary': 'outline-primary'} onClick={() => setSelectedDay('Wednesday')}>Wednesday</Button>
+                {Object.keys(dayToDateMap).map(currentDay => (
+                    <Button key={currentDay} variant={selectedDay === dayToDateMap[currentDay] ? 'primary' : 'outline-primary'} onClick={() => setSelectedDay(dayToDateMap[currentDay])}>{currentDay}</Button>
+                ))}
             </ButtonGroup>
         </div>
         {renderRoundsPerDay()}
