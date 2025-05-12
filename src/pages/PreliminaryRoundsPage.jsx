@@ -143,7 +143,14 @@ const PreliminaryRoundsPage = () => {
         <div className='d-flex justify-content-center mb-3'>
             <ButtonGroup>
                 {Object.keys(dayToDateMap).map(currentDay => (
-                    <Button key={currentDay} variant={selectedDay === dayToDateMap[currentDay] ? 'primary' : 'outline-primary'} onClick={() => setSelectedDay(dayToDateMap[currentDay])}>{currentDay}</Button>
+                    <Button key={currentDay} 
+                    variant={selectedDay === dayToDateMap[currentDay] ? 'primary' : 'outline-primary'} 
+                    onClick={() => {
+                        const selectedDate = dayToDateMap[currentDay];
+                        setSelectedDay(currentSelectedDate => currentSelectedDate === selectedDate ? null : selectedDate);
+                    }}>
+                        {currentDay}
+                    </Button>
                 ))}
             </ButtonGroup>
         </div>
