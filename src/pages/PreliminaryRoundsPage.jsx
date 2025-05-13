@@ -64,6 +64,9 @@ const PreliminaryRoundsPage = () => {
         fetchMatches(); 
     }, [selectedDay]);
 
+    /***********************************************
+     * FETCHES STATS FROM ALL TEAMS FOR ADMIN VIEW *
+     ***********************************************/
     useEffect(() => {
         const fetchTeamStats = async () => {
             
@@ -101,10 +104,10 @@ const PreliminaryRoundsPage = () => {
                         matchesForDay.map((currentMatch, matchIndex) => (
                             <tr key={currentMatch.matchID || matchIndex} onClick={() => performNavigation(`/oralrounds/prelims/${currentMatch.matchID}`)} style={{cursor: 'pointer'}}>
                                 <td>{currentMatch.matchID}</td>
-                                <td><strong>{currentMatch.firstTeam}</strong> vs <strong>{currentMatch.secondTeam}</strong></td>
+                                <td><strong>{currentMatch.firstTeamName} ({currentMatch.firstTeam})</strong> vs <strong>{currentMatch.secondTeamName} ({currentMatch.secondTeam})</strong></td>
                                 <td>{dateToDayMap[selectedDay]} at {currentMatch.matchTime}</td>
                                 <td>{currentMatch.roomNumber}</td>
-                                <td></td>
+                                <td>{currentMatch.matchWinner || '-'}</td>
                             </tr>
                         ))
                     )}
