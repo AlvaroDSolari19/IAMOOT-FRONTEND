@@ -28,6 +28,7 @@ const PreliminaryRoundsPage = () => {
     const [showResults, setShowResults] = useState(false); 
     const [selectedDay, setSelectedDay] = useState();
     const [matchesForDay, setMatchesForDay] = useState([]); 
+    const [teamStats, setTeamStats] = useState([]); 
 
     const handleSignOut = () => {
         resetLanguage(); 
@@ -62,6 +63,20 @@ const PreliminaryRoundsPage = () => {
         };
         fetchMatches(); 
     }, [selectedDay]);
+
+    useEffect(() => {
+        const fetchTeamStats = async () => {
+            
+            try {
+                const teamsResponse = await axios.get('http://localhost:3000/api/admin/teams'); 
+                setTeamStats(teamsResponse.data); 
+            } catch (err) {
+                console.error('Failed to fetch team stats: ', err); 
+            }
+
+        }
+        fetchTeamStats(); 
+    }, []);
 
     const renderRoundsPerDay = () => {
         if (!selectedDay){
@@ -107,28 +122,23 @@ const PreliminaryRoundsPage = () => {
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <td>School</td>
-                        <td>Team ID</td>
-                        <td>Number of Victories</td>
-                        <td>Number of Defeats</td>
-                        <td>Average Score for Memorandums</td>
+                        <th>School</th>
+                        <th>Team ID</th>
+                        <th>Number of Victories</th>
+                        <th>Number of Defeats</th>
+                        <th>Average Score for Memorandums</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>American University</td>
-                        <td>202</td>
-                        <td>2</td>
-                        <td>1</td>
-                        <td>8.5</td>
-                    </tr>
-                    <tr>
-                        <td>University of West Florida</td>
-                        <td>850</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>7.25</td>
-                    </tr>
+                    {teamStats.map( (currentTeam, currentIndex) => (
+                        <tr key={currentTeam.teamID || currentIndex}>
+                            <td>{currentTeam.universityName}</td>
+                            <td>{currentTeam.teamID}</td>
+                            <td>{currentTeam.preliminaryWins}</td>
+                            <td>{currentTeam.preliminaryLosses}</td>
+                            <td>{currentTeam.averageMemoScore}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </div>
