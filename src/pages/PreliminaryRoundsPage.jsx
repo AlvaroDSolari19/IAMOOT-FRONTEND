@@ -52,7 +52,7 @@ const PreliminaryRoundsPage = () => {
 
         const fetchMatches = async () => {
             try {
-                const matchResponse = await axios.get('http://localhost:3000/api/preliminary-matches', {
+                const matchResponse = await axios.get('http://localhost:3000/api/admin/preliminary-matches', {
                     params: {matchDate: selectedDay }
                 });
                 setMatchesForDay(matchResponse.data); 
@@ -72,11 +72,11 @@ const PreliminaryRoundsPage = () => {
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <td>Match ID</td>
-                        <td>Matchup</td>
-                        <td>Date and Time</td>
-                        <td>Location</td>
-                        <td>Winner</td>
+                        <th>Match ID</th>
+                        <th>Matchup</th>
+                        <th>Date and Time</th>
+                        <th>Location</th>
+                        <th>Winner</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,7 +86,7 @@ const PreliminaryRoundsPage = () => {
                         matchesForDay.map((currentMatch, matchIndex) => (
                             <tr key={currentMatch.matchID || matchIndex} onClick={() => performNavigation(`/oralrounds/prelims/${currentMatch.matchID}`)} style={{cursor: 'pointer'}}>
                                 <td>{currentMatch.matchID}</td>
-                                <td>{currentMatch.firstTeam} vs {currentMatch.secondTeam}</td>
+                                <td><strong>{currentMatch.firstTeam}</strong> vs <strong>{currentMatch.secondTeam}</strong></td>
                                 <td>{dateToDayMap[selectedDay]} at {currentMatch.matchTime}</td>
                                 <td>{currentMatch.roomNumber}</td>
                                 <td></td>
