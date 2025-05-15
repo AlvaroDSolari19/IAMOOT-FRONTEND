@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button, Card, Image } from 'react-bootstrap';
 
 import { LanguageContext } from '../contexts/LanguageContext';
-import { RoleContext } from '../contexts/RoleContext'; 
+import { RoleContext } from '../contexts/RoleContext';
 
 const DashboardPage = () => { 
 
@@ -43,7 +43,7 @@ const DashboardPage = () => {
 
     const renderContentForRole = () => {
 
-        const currentName = sessionStorage.getItem('currentName'); 
+        const currentName = sessionStorage.getItem('fullName'); 
 
         if (currentRole === 'Admin'){
             return (<div className='d-grid gap-2'>
