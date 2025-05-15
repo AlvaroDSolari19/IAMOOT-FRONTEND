@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom'; 
 import { Accordion, Button, Card, Form, ListGroup } from 'react-bootstrap'; 
+import axios from 'axios'
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
@@ -9,6 +10,10 @@ import { RoleContext } from "../contexts/RoleContext";
 import questionText from '../data/oralRubric';
 
 const OralMatchDetailsPage = () => { 
+
+    const { matchID } = useParams(); 
+    const [matchData, setMatchData] = useState(null); 
+    const [allSpeakers, setSpeakerList] = useState([]); 
 
     const { currentLanguage } = useContext(LanguageContext);
     const { currentRole } = useContext(RoleContext);
@@ -18,8 +23,6 @@ const OralMatchDetailsPage = () => {
     const [openPanel, setOpenPanel] = useState(null);
     const accordionRefs = useRef({}); 
 
-    const matchParticipants = ['Participant 1 of Team 1', 'Participant 2 of Team 1', 'Participant 1 of Team 2', 'Participant 2 of Team 2'];
-
     const pageText = {
         EN: {evaluationMsg: 'Evaluation Criteria', templateMsg: 'Scoring Template', labelPrompt: 'Enter score', errorMsg: 'Please enter a value for the above field', submitMsg: 'Submit all evaluations'}, 
         ES: {evaluationMsg: 'Criterios de Evaluación', templateMsg: 'Guía de Puntuación', labelPrompt: 'Ingrese la puntuación', errorMsg: 'Por favor, ingrese un valor para el campo anterior', submitMsg: 'Enviar todas las evaluaciones'},
@@ -28,6 +31,25 @@ const OralMatchDetailsPage = () => {
 
     const actualText = pageText[currentLanguage]; 
     const actualFormText = questionText[currentLanguage]; 
+
+    /********************
+     * FETCH MATCH INFO *
+     ********************/
+    useEffect(() => {
+        async function fetchMatch(){
+            try{
+                const matchResponse = await axios.get(`http://localhost:3000/api/oralrounds/match/${matchID}`);
+                const rawData = matchResponse.data; 
+
+                setMatchData(rawData);
+                setSpeakerList(rawData.allSpeakers); 
+            } catch (err) {
+                console.error(`Error fetching match data: ${err}`)
+            }
+        }
+
+        fetchMatch(); 
+    }, [matchID]);
     
     /*********************************
      * CHECKS THAT THE ROLE IS JUDGE *
@@ -52,11 +74,17 @@ const OralMatchDetailsPage = () => {
         })
         performNavigation('/oralcomp/judge');
     }
+
+    if (!matchData) {
+        return <p className="text-center mt-5">Loading match details...</p>;
+    }
+
+    console.log(allSpeakers); 
         
     return <div className='d-grid gap-2'>
         
         <Card className='text-center mb-4'>
-            <Card.Header as='h1' className='display-5 fw-bold'>Team 1 vs Team 2</Card.Header>
+            <Card.Header as='h1' className='display-5 fw-bold'>{matchData.firstTeam} vs {matchData.secondTeam}</Card.Header>
         </Card>
 
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -72,9 +100,9 @@ const OralMatchDetailsPage = () => {
                 }, 350);
             }}>
                 
-                {matchParticipants.map((currentParticipant, participantIndex) => (
+                {allSpeakers.map((currentParticipant, participantIndex) => (
                     <Accordion.Item eventKey={participantIndex.toString()} key={participantIndex} ref={(el) => accordionRefs.current[participantIndex] = el}>
-                        <Accordion.Header>{currentParticipant}</Accordion.Header>
+                        <Accordion.Header>{currentParticipant.speakerName}</Accordion.Header>
                         <Accordion.Body>
                             {actualFormText.map( (currentQuestion, questionIndex) => (                    
                                 <Card key={questionIndex} className='mb-4'>
@@ -103,19 +131,19 @@ const OralMatchDetailsPage = () => {
                                                     min={currentQuestion.minValue} 
                                                     max={currentQuestion.maxValue}
                                                     onWheel={(someEvent) => someEvent.target.blur()}
-                                                    {...register(`submittedScores.${currentParticipant}.${questionIndex}`, {
+                                                    {...register(`submittedScores.${currentParticipant.speakerID}.${questionIndex}`, {
                                                         required: actualText.errorMsg, 
                                                         min: currentQuestion.minValue,
                                                         max: currentQuestion.maxValue,
                                                     })} 
                                                     onBlur={(someEvent) => {
                                                         let targetValue = Number(someEvent.target.value);
-                                                        if (targetValue < currentQuestion.minValue) setValue(`submittedScores.${currentParticipant}.${questionIndex}`, currentQuestion.minValue, {shouldValidate: true}); 
-                                                        if (targetValue > currentQuestion.maxValue) setValue(`submittedScores.${currentParticipant}.${questionIndex}`, currentQuestion.maxValue, {shouldValidate: true});   
+                                                        if (targetValue < currentQuestion.minValue) setValue(`submittedScores.${currentParticipant.speakerID}.${questionIndex}`, currentQuestion.minValue, {shouldValidate: true}); 
+                                                        if (targetValue > currentQuestion.maxValue) setValue(`submittedScores.${currentParticipant.speakerID}.${questionIndex}`, currentQuestion.maxValue, {shouldValidate: true});   
                                                     }}
                                                 />
                                             </div>
-                                            {errors.submittedScores?.[currentParticipant]?.[questionIndex] && (
+                                            {errors.submittedScores?.[currentParticipant.speakerID]?.[questionIndex] && (
                                                 <div className='text-danger mt-2 fw-semibold fs-italic'>
                                                     {errors.submittedScores[currentParticipant][questionIndex].message}
                                                 </div>
