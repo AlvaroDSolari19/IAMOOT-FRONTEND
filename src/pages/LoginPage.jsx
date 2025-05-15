@@ -6,10 +6,12 @@ import axios from 'axios';
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from '../contexts/RoleContext'; 
+import { JudgeIDContext } from '../contexts/JudgeIDContext';
 
 const LoginPage = () => {
 
     const { assignRole } = useContext(RoleContext); 
+    const { assignJudgeID } = useContext(JudgeIDContext); 
     const { currentLanguage } = useContext(LanguageContext); 
     const performNavigation = useNavigate(); 
     const { register, handleSubmit, formState: { errors }, } = useForm();
@@ -29,10 +31,11 @@ const LoginPage = () => {
             })
 
             /* theResponse.data contains the information sent from the backend as it will be configured on the /api/login route. */
-            const { currentName, currentRole } = res.data;
+            const { currentID, currentName, currentRole } = res.data;
 
-            sessionStorage.setItem('currentName', currentName);
+            assignJudgeID(currentID); 
             assignRole(currentRole);
+            sessionStorage.setItem('fullName', currentName)
 
             performNavigation('/dashboard'); 
 
