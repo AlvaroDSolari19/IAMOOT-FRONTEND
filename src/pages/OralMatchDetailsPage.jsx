@@ -41,7 +41,7 @@ const OralMatchDetailsPage = () => {
     useEffect(() => {
         async function fetchMatch(){
             try{
-                const matchResponse = await axios.get(`http://localhost:3000/api/oralrounds/match/${matchID}`);
+                const matchResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/oralrounds/match/${matchID}`);
                 const rawData = matchResponse.data; 
 
                 setMatchData(rawData);
@@ -109,7 +109,7 @@ const OralMatchDetailsPage = () => {
         })
 
         try {
-            await axios.post('http://localhost:3000/api/oralrounds/submitscores', {
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/oralrounds/submitscores`, {
                 judgeID: Number(judgeID), 
                 matchID,
                 finalScores

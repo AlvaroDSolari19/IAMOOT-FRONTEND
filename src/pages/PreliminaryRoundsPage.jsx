@@ -53,7 +53,7 @@ const PreliminaryRoundsPage = () => {
 
         const fetchMatches = async () => {
             try {
-                const matchResponse = await axios.get('http://localhost:3000/api/admin/preliminary-matches', {
+                const matchResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/admin/preliminary-matches`, {
                     params: {matchDate: selectedDay }
                 });
                 setMatchesForDay(matchResponse.data); 

@@ -40,7 +40,7 @@ const PreliminaryRoundsDecision = () => {
     useEffect(() => {
         const fetchMatch = async () => {
             try {
-                const matchResponse = await axios.get(`http://localhost:3000/api/admin/preliminary-matches/${matchID}`);
+                const matchResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/admin/preliminary-matches/${matchID}`);
                 setMatchDetails(matchResponse.data); 
             } catch (err){
                 console.error('Failed to fetch match: ', err); 
@@ -51,7 +51,7 @@ const PreliminaryRoundsDecision = () => {
 
     const onSubmit = async (formData) => {
         try {
-            await axios.patch(`http://localhost:3000/api/admin/preliminary-matches/${matchID}`, {
+            await axios.patch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/preliminary-matches/${matchID}`, {
                 matchWinner: formData.roundWinner
             });
 

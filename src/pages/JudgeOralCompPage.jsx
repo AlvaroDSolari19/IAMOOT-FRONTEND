@@ -43,7 +43,7 @@ const JudgeOralCompPage = () => {
     useEffect(() => {
         const fetchMatches = async () => {
             try {
-                const assignedMatchesResult = await axios.get(`http://localhost:3000/api/oralrounds/judge/${judgeID}`)
+                const assignedMatchesResult = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/oralrounds/judge/${judgeID}`)
                 setMatches(assignedMatchesResult.data); 
             } catch (err) {
                 console.error(`Error fetching matches: ${err}`)
