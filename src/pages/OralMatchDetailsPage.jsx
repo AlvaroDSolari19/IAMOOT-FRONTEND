@@ -6,6 +6,7 @@ import axios from 'axios'
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
+import { JudgeIDContext } from '../contexts/JudgeIDContext'
 
 import questionText from '../data/oralRubric';
 
@@ -17,6 +18,8 @@ const OralMatchDetailsPage = () => {
 
     const { currentLanguage } = useContext(LanguageContext);
     const { currentRole } = useContext(RoleContext);
+    const { judgeID } = useContext(JudgeIDContext);
+
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();  
     const performNavigation = useNavigate(); 
 
@@ -24,9 +27,9 @@ const OralMatchDetailsPage = () => {
     const accordionRefs = useRef({}); 
 
     const pageText = {
-        EN: {evaluationMsg: 'Evaluation Criteria', templateMsg: 'Scoring Template', labelPrompt: 'Enter score', errorMsg: 'Please enter a value for the above field', submitMsg: 'Submit all evaluations'}, 
-        ES: {evaluationMsg: 'Criterios de Evaluación', templateMsg: 'Guía de Puntuación', labelPrompt: 'Ingrese la puntuación', errorMsg: 'Por favor, ingrese un valor para el campo anterior', submitMsg: 'Enviar todas las evaluaciones'},
-        POR: {evaluationMsg: 'Critérios de Avaliação', templateMsg: 'Modelo de Pontuação', labelPrompt: 'Insira a pontuação', errorMsg: 'Por favor, insira um valor no campo acima', submitMsg: 'Enviar todas as avaliações'}
+        EN: {evaluationMsg: 'Evaluation Criteria', templateMsg: 'Scoring Template', labelPrompt: 'Enter score', errorMsg: 'Please enter a numeric value for the above field', submitMsg: 'Submit all evaluations'}, 
+        ES: {evaluationMsg: 'Criterios de Evaluación', templateMsg: 'Guía de Puntuación', labelPrompt: 'Ingrese la puntuación', errorMsg: 'Por favor, ingrese un valor numérico en el campo anterior', submitMsg: 'Enviar todas las evaluaciones'},
+        POR: {evaluationMsg: 'Critérios de Avaliação', templateMsg: 'Modelo de Pontuação', labelPrompt: 'Insira a pontuação', errorMsg: 'Por favor, insira um valor numérico no campo acima.', submitMsg: 'Enviar todas as avaliações'}
     }
 
     const actualText = pageText[currentLanguage]; 
@@ -50,6 +53,12 @@ const OralMatchDetailsPage = () => {
 
         fetchMatch(); 
     }, [matchID]);
+
+    const handleSignOut = () => {
+        resetLanguage(); 
+        assignRole(''); 
+        performNavigation('/');
+    };
     
     /*********************************
      * CHECKS THAT THE ROLE IS JUDGE *
@@ -63,23 +72,61 @@ const OralMatchDetailsPage = () => {
     /**************************
      * HANDLE FORM SUBMISSION *
      **************************/
-    const onSubmit = (someData) => {
-        Object.keys(someData.submittedScores).forEach( (currentParticipant) => {
-            let totalScore = 0; 
-            const participantScores = someData.submittedScores[currentParticipant]; 
-            participantScores.forEach(currentScore => {
-                totalScore = totalScore + Number(currentScore); 
-            })
-            console.log(`${currentParticipant} made a total score of ${totalScore}`);
+    const onSubmit = async (formData) => {
+
+        const scoresFromForm = formData.submittedScores; 
+
+        /* VALIDATION */
+        if (Object.keys(scoresFromForm).length !== 4){
+            alert('All 4 speakers must be graded before submitting'); 
+            return; 
+        }
+
+        for (const speakerID of Object.keys(scoresFromForm)){
+            const scoreArray = scoresFromForm[speakerID]; 
+
+            if (!Array.isArray(scoreArray) || scoreArray.length === 0){
+                alert(`Missing scores for speaker: ${speakerID}`);
+                return; 
+            }
+
+            for (const currentScore of scoreArray){
+                const numericScore = Number(currentScore); 
+                if (isNaN(numericScore)){
+                    alert(`Invalid score entered for speaker ${speakerID}. Please enter a number.`)
+                    return; 
+                }
+            }
+        }
+
+        /* TRANSFORMATION TO SOMETHING POST CAN UPDATE */ 
+        const finalScores = [];
+        Object.keys(scoresFromForm).forEach( (speakerID) => {
+            const scoreArray = scoresFromForm[speakerID]; 
+            const totalScore = scoreArray.reduce((acc, score) => acc + Number(score), 0);
+            finalScores.push({ speakerID, finalScore: totalScore }); 
+            console.log(`${speakerID} made a total score of ${totalScore}`);
         })
-        performNavigation('/oralcomp/judge');
+
+        try {
+            await axios.post('http://localhost:3000/api/oralrounds/submitscores', {
+                judgeID: Number(judgeID), 
+                matchID,
+                finalScores
+            });
+
+            alert('Scores submitted successfully'); 
+            performNavigation(`/oralcomp/judge`)
+        } catch (err) {
+            console.error('Error submitting scores: ', err);
+            alert('An error ocurred while submitting the scores. Please try again.');
+        }
+
     }
 
     if (!matchData) {
         return <p className="text-center mt-5">Loading match details...</p>;
     }
-
-    console.log(allSpeakers); 
         
     return <div className='d-grid gap-2'>
         
@@ -145,7 +192,7 @@ const OralMatchDetailsPage = () => {
                                             </div>
                                             {errors.submittedScores?.[currentParticipant.speakerID]?.[questionIndex] && (
                                                 <div className='text-danger mt-2 fw-semibold fs-italic'>
-                                                    {errors.submittedScores[currentParticipant][questionIndex].message}
+                                                    {errors.submittedScores[currentParticipant.speakerID][questionIndex].message}
                                                 </div>
                                             )}
                                         </Form.Group>

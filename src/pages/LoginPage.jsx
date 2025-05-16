@@ -36,7 +36,6 @@ const LoginPage = () => {
             assignJudgeID(currentID); 
             assignRole(currentRole);
             sessionStorage.setItem('fullName', currentName)
-
             performNavigation('/dashboard'); 
 
         } catch (err) {
