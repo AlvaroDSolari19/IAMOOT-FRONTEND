@@ -25,7 +25,7 @@ const LoginPage = () => {
              * It will wait for the /api/login to send a response, which is stored in the variable theResponse. 
              * The contents of the response are configured in the backend but this is how the client and server to communicate. */
             
-            const res = await axios.post('http://localhost:3000/api/login', {
+            const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/login`, {
                 userEmail: someData.username,
                 userPass: someData.password
             })
