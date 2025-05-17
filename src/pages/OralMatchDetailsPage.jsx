@@ -41,13 +41,30 @@ const OralMatchDetailsPage = () => {
     useEffect(() => {
         async function fetchMatch(){
             try{
-                const matchResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/oralrounds/match/${matchID}`);
+                const matchResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/oralrounds/match/${matchID}`, {
+                    headers: {
+                        judgeID: judgeID
+                    }
+                });
                 const rawData = matchResponse.data; 
 
                 setMatchData(rawData);
                 setSpeakerList(rawData.allSpeakers); 
             } catch (err) {
-                console.error(`Error fetching match data: ${err}`)
+                if(err.response?.status === 403){
+                    const errorMsg = err.response.data?.message; 
+
+                    if (errorMsg === 'You have already graded this match.'){
+                        alert('You have already graded this match.');
+                    } else {
+                        alert('Access denied. You are not assigned to this match.'); 
+                    }
+                    
+                    performNavigation(`/oralcomp/judge`)
+                
+                } else {
+                    console.error(`Error fetching match data: ${err}`)
+                }
             }
         }
 
