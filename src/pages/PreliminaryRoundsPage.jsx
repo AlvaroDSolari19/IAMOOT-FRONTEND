@@ -71,7 +71,7 @@ const PreliminaryRoundsPage = () => {
         const fetchTeamStats = async () => {
             
             try {
-                const teamsResponse = await axios.get('http://localhost:3000/api/admin/teams'); 
+                const teamsResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/admin/teams`); 
                 setTeamStats(teamsResponse.data); 
             } catch (err) {
                 console.error('Failed to fetch team stats: ', err); 
