@@ -17,12 +17,28 @@ const SemiFinalRoundsPage = () => {
     const [displayVictimRanking, setDisplayVictims] = useState(false); 
 
     const [semifinalMatches, setSemifinalMatches] = useState([]); 
+    const [semiTeams, setSemiTeams] = useState([]); 
 
     const handleSignOut = () => {
         resetLanguage(); 
         assignRole(''); 
         performNavigation('/');
     };
+
+    const fetchSemiTeamRankings = async () => {
+        try {
+            const [teamsResponse, matchesResponse] = await Promise.all([
+                axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/admin/semi-team-rankings`),
+                axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/admin/semifinal-matches`)
+            ]);
+
+            setSemiTeams(teamsResponse.data);
+            setSemifinalMatches(matchesResponse.data);  
+        } catch (err) {
+            console.error('Failed to fetch semifinal rankings: ', err); 
+            alert('Failed to load semifinal rankings'); 
+        }
+    }
 
     /*********************************
      * CHECKS THAT THE ROLE IS ADMIN *
@@ -63,10 +79,31 @@ const SemiFinalRoundsPage = () => {
         </div>
     }
 
+    /***********************************************
+     * HELPER FUNCTION FOR STATE AND VICTIM TABLES *
+     ***********************************************/
+    const getTeamRoleMap = () => {
+        const teamRoleMap = new Map(); 
+
+        semifinalMatches.forEach(currentSemifinalMatch => {
+            const { firstTeam, firstTeamRole, secondTeam, secondTeamRole } = currentSemifinalMatch; 
+
+            teamRoleMap.set(firstTeam, firstTeamRole);
+            teamRoleMap.set(secondTeam, secondTeamRole); 
+        });
+
+        return teamRoleMap; 
+    }
+
     const renderStateTable = () => {
         if (!displayStateRanking){
             return null;
         }
+
+        const roleMap = getTeamRoleMap(); 
+        const stateTeams = semiTeams
+            .filter(currentTeam => roleMap.get(currentTeam.teamID) === 'State')
+            .sort((teamA, teamB) => (teamB.averageSemiScore ?? 0) - (teamA.averageSemiScore ?? 0));
 
         return <div>
             <h2>State Rankings</h2>
@@ -79,11 +116,13 @@ const SemiFinalRoundsPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>American University</th>
-                        <th>202</th>
-                        <th>9.0</th>
-                    </tr>
+                    {stateTeams.map(currentTeam => (
+                        <tr key={currentTeam.teamID}>
+                            <td>{currentTeam.universityName}</td>
+                            <td>{currentTeam.teamID}</td>
+                            <td>{currentTeam.averageSemiScore ?? '-'}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </div>
@@ -93,6 +132,12 @@ const SemiFinalRoundsPage = () => {
         if (!displayVictimRanking){
             return null;
         }
+
+        const teamRoleMap = getTeamRoleMap(); 
+
+        const victimTeams = semiTeams
+            .filter(currentTeam => teamRoleMap.get(currentTeam.teamID) === 'Victim')
+            .sort((teamA, teamB) => (teamB.averageSemiScore ?? 0) - (teamA.averageSemiScore ?? 0));
 
         return <div>
             <h2>Victim Rankings</h2>
@@ -105,11 +150,13 @@ const SemiFinalRoundsPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>University of West Florida</th>
-                        <th>850</th>
-                        <th>8.5</th>
-                    </tr>
+                    {victimTeams.map(currentTeam => (
+                        <tr key={currentTeam.teamID}>
+                            <td>{currentTeam.universityName}</td>
+                            <td>{currentTeam.teamID}</td>
+                            <td>{currentTeam.averageSemiScore ?? '-'}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </div>
@@ -140,9 +187,23 @@ const SemiFinalRoundsPage = () => {
                 {displayRound ? 'Hide Schedule' : 'Show Schedule'}
             </Button>
             {renderRoundTable()}
-            <Button variant='primary' onClick={() => {setDisplayStates(true)}}>State Rankings</Button>
+            <Button variant='primary' onClick={async () => {
+                if (!displayStateRanking){
+                    await fetchSemiTeamRankings(); 
+                }
+                setDisplayStates(!displayStateRanking);
+            }}>
+                {displayStateRanking ? 'Hide State Rankings' : 'Show State Rankings'}
+            </Button>
             {renderStateTable()}
-            <Button variant='primary' onClick={() => {setDisplayVictims(true)}}>Victim Rankings</Button>
+            <Button variant='primary' onClick={async () => {
+                if (!displayVictimRanking){
+                    await fetchSemiTeamRankings(); 
+                }
+                setDisplayVictims(!displayVictimRanking);
+            }}>
+                {displayVictimRanking ? 'Hide Victim Rankings' : 'Show Victim Rankings'}
+            </Button>
             {renderVictimTable()}
             <Button variant='danger' onClick={handleSignOut}>Sign Out</Button>
         </div>
