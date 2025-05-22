@@ -53,7 +53,7 @@ const IndividualScoresPage = () => {
         }
 
         return <div>
-            <h2 className='text-center my-4'>{selectedCategory}</h2>
+            <h2 className='text-center my-2'>{selectedCategory}</h2>
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -67,7 +67,7 @@ const IndividualScoresPage = () => {
                     {speakerData.map((currentSpeaker, speakerIndex) => (
                         <tr key={currentSpeaker.speakerID || speakerIndex}>
                             <td>{speakerIndex + 1}</td>
-                            <td>Placeholder</td>
+                            <td>{currentSpeaker.speakerSchool} <strong>({currentSpeaker.teamID})</strong></td>
                             <td>{currentSpeaker.speakerName}</td>
                             <td>{currentSpeaker.preliminaryAverageScore?.toFixed(2)}</td>
                         </tr>
