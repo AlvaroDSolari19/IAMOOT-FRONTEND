@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
 import { Button, Card, Table } from 'react-bootstrap'; 
+import axios from 'axios';
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
@@ -14,6 +15,8 @@ const SemiFinalRoundsPage = () => {
     const [displayRound, setDisplayRound] = useState(false); 
     const [displayStateRanking, setDisplayStates] = useState(false);
     const [displayVictimRanking, setDisplayVictims] = useState(false); 
+
+    const [semifinalMatches, setSemifinalMatches] = useState([]); 
 
     const handleSignOut = () => {
         resetLanguage(); 
@@ -36,21 +39,25 @@ const SemiFinalRoundsPage = () => {
         }
 
         return <div>
-            <h2>Round Schedule</h2>
+            <h2>Semifinals Schedule</h2>
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>Match Up</th>
+                        <th>Match ID</th>
+                        <th>Matchup</th>
                         <th>Classroom</th>
                         <th>Time</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>American University vs University of West Florida</th>
-                        <th>Room 403</th>
-                        <th>4:00 PM</th>
-                    </tr>
+                    {semifinalMatches.map((currentMatch) => (
+                        <tr key={currentMatch.matchID}>
+                            <td>{currentMatch.matchID}</td>
+                            <td>{currentMatch.firstTeamName} <strong>({currentMatch.firstTeam})</strong> vs {currentMatch.secondTeamName} <strong>({currentMatch.secondTeam})</strong></td>
+                            <td>{currentMatch.roomNumber || 'TBD'}</td>
+                            <td>{currentMatch.matchTime || 'TBD'}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </div>
@@ -114,7 +121,24 @@ const SemiFinalRoundsPage = () => {
         </Card>
 
         <div className='d-grid gap-2'>
-            <Button variant='primary' onClick={() => {setDisplayRound(true)}}>Generate Schedule</Button>
+            <Button variant='primary' onClick={async () => {
+                if (!displayRound){
+
+                    try{
+                        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/admin/semifinal-matches`);
+                        setSemifinalMatches(response.data); 
+                        setDisplayRound(true);
+                    } catch (err){
+                        console.error('Error fetching semifinal matches: ', err); 
+                        alert('Failed to load semifinal schedule.'); 
+                    }
+
+                } else {
+                    setDisplayRound(false); 
+                }
+            }}>
+                {displayRound ? 'Hide Schedule' : 'Show Schedule'}
+            </Button>
             {renderRoundTable()}
             <Button variant='primary' onClick={() => {setDisplayStates(true)}}>State Rankings</Button>
             {renderStateTable()}
