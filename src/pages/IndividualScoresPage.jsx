@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
 import { Button, Card, Table } from 'react-bootstrap'; 
+import axios from 'axios'; 
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import { RoleContext } from "../contexts/RoleContext";
@@ -12,6 +13,7 @@ const IndividualScoresPage = () => {
     const performNavigation = useNavigate(); 
 
     const [selectedCategory, setSelectedCategory] = useState(null); 
+    const [speakerData, setSpeakerData] = useState([]); 
 
     const handleSignOut = () => {
         resetLanguage(); 
@@ -28,8 +30,21 @@ const IndividualScoresPage = () => {
         }
     }, [currentRole]);
 
-    const handleCategorySelection = (someCategory) => {
+    const handleCategorySelection = async (someCategory) => {
         setSelectedCategory(someCategory)
+
+        let languageCode = ''; 
+        if (someCategory.includes('English')) languageCode = 'EN'; 
+        if (someCategory.includes('Spanish')) languageCode = 'SPA'; 
+        if (someCategory.includes('Portuguese')) languageCode = 'POR'; 
+
+        try {
+            const speakerResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/admin/speakers?language=${languageCode}`);
+            setSpeakerData(speakerResponse.data);
+        } catch (error) {
+            console.error('Error fetching speaker data: ', error); 
+            setSpeakerData([]); 
+        }
     }
 
     const renderContent = () => {
@@ -38,7 +53,7 @@ const IndividualScoresPage = () => {
         }
 
         return <div>
-            <h2>{selectedCategory}</h2>
+            <h2 className='text-center my-4'>{selectedCategory}</h2>
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -49,18 +64,14 @@ const IndividualScoresPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>American University</td>
-                        <td>Alvaro Solari</td>
-                        <td>9.0</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>American University</td>
-                        <td>Santiago Yara</td>
-                        <td>8.75</td>
-                    </tr>
+                    {speakerData.map((currentSpeaker, speakerIndex) => (
+                        <tr key={currentSpeaker.speakerID || speakerIndex}>
+                            <td>{speakerIndex + 1}</td>
+                            <td>Placeholder</td>
+                            <td>{currentSpeaker.speakerName}</td>
+                            <td>{currentSpeaker.preliminaryAverageScore?.toFixed(2)}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </div>
