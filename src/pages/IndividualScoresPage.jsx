@@ -57,10 +57,10 @@ const IndividualScoresPage = () => {
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <td>Ranking</td>
-                        <td>School</td>
-                        <td>Participant's Name</td>
-                        <td>Average Score for Preliminary</td>
+                        <th>Ranking</th>
+                        <th>School</th>
+                        <th>Participant's Name</th>
+                        <th>Average Score for Preliminary</th>
                     </tr>
                 </thead>
                 <tbody>
