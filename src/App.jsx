@@ -12,7 +12,9 @@ import { JudgeIDProvider } from './contexts/JudgeIDContext.jsx'
  * PAGES *
  *********/
 import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage'; 
+import Login from './pages/Login.jsx'; 
+import RequestPassword from './pages/RequestPassword.jsx';
+import SetPassword from './pages/SetPassword.jsx';
 import DashboardPage from './pages/DashboardPage';
 import AdminOralCompPage from './pages/AdminOralCompPage';
 import AdminWrittenCompPage from './pages/AdminWrittenCompPage';
@@ -35,7 +37,9 @@ function App() {
                     <Router>
                         <Routes>
                             <Route path='/' element={<HomePage/>}/>
-                            <Route path='/login' element={<LoginPage/>}/>
+                            <Route path='/login' element={<Login/>}/>
+                            <Route path='/request-password' element={<RequestPassword/>}/>
+                            <Route path='/set-password' element={<SetPassword/>}/>
                             <Route path='/dashboard' element={<DashboardPage/>}/>
                             <Route path='/oralcomp/admin' element={<AdminOralCompPage/>}/>
                             <Route path='/oralcomp/judge' element={<JudgeOralCompPage/>}/>
