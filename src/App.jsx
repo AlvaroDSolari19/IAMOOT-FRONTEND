@@ -26,7 +26,6 @@ import SemiFinalRoundsPage from './pages/SemiFinalRoundsPage.jsx';
 import OralMatchDetailsPage from './pages/OralMatchDetailsPage.jsx';
 import JudgeOralCompPage from './pages/JudgeOralCompPage.jsx';
 import JudgeWrittenCompPage from './pages/JudgeWrittenCompPage.jsx';
-import WrittenDetailsPage from './pages/WrittenDetailsPage.jsx';
 
 function App() {
 
@@ -51,7 +50,6 @@ function App() {
                             <Route path='/oralrounds' element={<OralRoundsPage/>}/>
                             <Route path='/writtencomp/admin' element={<AdminWrittenCompPage/>}/>
                             <Route path='/writtencomp/judge' element={<JudgeWrittenCompPage/>}/>
-                            <Route path='/writtencomp/memorandum/:memorandumID' element={<WrittenDetailsPage/>}/>
                         </Routes>
                     </Router>
                 </JudgeIDProvider>
