@@ -17,7 +17,6 @@ import RequestPassword from './pages/RequestPassword.jsx';
 import SetPassword from './pages/SetPassword.jsx';
 import DashboardPage from './pages/DashboardPage';
 import AdminOralCompPage from './pages/AdminOralCompPage';
-import AdminWrittenCompPage from './pages/AdminWrittenCompPage';
 import IndividualScoresPage from './pages/IndividualScoresPage.jsx';
 import OralRoundsPage from './pages/OralRoundsPage.jsx'; 
 import PreliminaryRoundsPage from './pages/PreliminaryRoundsPage.jsx';
@@ -25,7 +24,6 @@ import PreliminaryRoundsDecision from './pages/PreliminaryRoundsDecision.jsx';
 import SemiFinalRoundsPage from './pages/SemiFinalRoundsPage.jsx';
 import OralMatchDetailsPage from './pages/OralMatchDetailsPage.jsx';
 import JudgeOralCompPage from './pages/JudgeOralCompPage.jsx';
-import JudgeWrittenCompPage from './pages/JudgeWrittenCompPage.jsx';
 
 function App() {
 
@@ -48,8 +46,6 @@ function App() {
                             <Route path='/oralrounds/semifinals' element={<SemiFinalRoundsPage/>}/>
                             <Route path='/oralrounds/match/:matchID' element={<OralMatchDetailsPage/>}/>
                             <Route path='/oralrounds' element={<OralRoundsPage/>}/>
-                            <Route path='/writtencomp/admin' element={<AdminWrittenCompPage/>}/>
-                            <Route path='/writtencomp/judge' element={<JudgeWrittenCompPage/>}/>
                         </Routes>
                     </Router>
                 </JudgeIDProvider>
