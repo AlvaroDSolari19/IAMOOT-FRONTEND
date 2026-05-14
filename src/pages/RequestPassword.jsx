@@ -59,7 +59,7 @@ export default function RequestPassword() {
 
     const handleFormSubmit = async (someData) => {
         try {
-            await api.post('/api/judges/request-password', {
+            await api.post('/api/oral-judges/request-password', {
                 email: someData.email
             }); 
         } catch (err) {

@@ -24,7 +24,7 @@ import PreliminaryRoundsDecision from './pages/PreliminaryRoundsDecision.jsx';
 import SemiFinalRoundsPage from './pages/SemiFinalRoundsPage.jsx';
 import OralMatchDetailsPage from './pages/OralMatchDetailsPage.jsx';
 import JudgeOralCompPage from './pages/JudgeOralCompPage.jsx';
-
+    
 function App() {
 
     return (

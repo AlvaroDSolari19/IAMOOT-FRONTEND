@@ -80,7 +80,7 @@ export default function SetPassword() {
     const handleFormSubmit = async (someData) => {
         
         try {
-            await api.post('/api/judges/set-password', {
+            await api.post('/api/oral-judges/set-password', {
                 email: emailParam, 
                 resetToken: resetTokenParam, 
                 newPassword: someData.newPassword
