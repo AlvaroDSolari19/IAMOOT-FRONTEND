@@ -45,7 +45,7 @@ const JudgeOralCompPage = () => {
                 const response = await api.get('/api/oralrounds/me/matches');
 
                 setAssignedMatches(response.data || []);
-            } catch (eror) {
+            } catch (error) {
                 console.error('ERROR LOADING ASSIGNED ORAL MATCHES:', error);
 
                 if (error.response?.status === 401) {
@@ -114,8 +114,8 @@ const JudgeOralCompPage = () => {
                 )}
             </ListGroup>
             
-            <Button variant='danger' onClick={handleSignOut}>
-                {actualText.buttonText}
+            <Button variant='danger' className="w-100" onClick={handleSignOut}>
+                {actualText.logoutText}
             </Button>
         </div>
     );

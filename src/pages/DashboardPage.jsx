@@ -34,8 +34,7 @@ const DashboardPage = () => {
     }, [performNavigation]);
 
     
-    return (
-        <div className="d-grip gap-2">
+    return <div className="d-grip gap-2">
             <Card className='text-center mb-2'>
                 <Card.Header as='h1' className='display-5 fw-bold'>
                     {actualText.welcomeMsg}
@@ -45,30 +44,20 @@ const DashboardPage = () => {
                 </Card.Header>
             </Card>
 
+            
             <Image
                 src={selectedImage}
                 alt="IAMOOT logo"
                 fluid
                 className="mx-auto d-block"
-                style={{ width: '50%',maxWidth: '620px', height: 'auto'}}
+                style={{ width: '50%', maxWidth: '620px', height: 'auto'}}
             />
-
             <p className="mx-auto px-4 w-75 mb-0 text-center">
                 {actualText.descriptionText}
             </p>
-
-            <Button
-                variant="primary"
-                onClick={() => performNavigation('/oralcomp/judge')}
-            >
-                {actualText.oralComp}
-            </Button>
-
-            <Button variant="danger" onClick={handleSignOut}>
-                {actualText.logoutText}
-            </Button>
+            <Button variant="primary" className="w-100" onClick={() => performNavigation('/oralcomp/judge')}>{actualText.oralComp}</Button>
+            <Button variant="danger" className="w-100" onClick={handleSignOut}>{actualText.logoutText}</Button>
         </div>
-    );
 };
            
 
