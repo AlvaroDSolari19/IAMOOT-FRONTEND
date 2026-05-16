@@ -108,7 +108,7 @@ const questionText = {
                 ]
             }
         ],
-        ES: [
+        SPA: [
             {
                 currentCategory: 'Argumentos Jurídicos (0-30)', 
                 minValue: 0, 

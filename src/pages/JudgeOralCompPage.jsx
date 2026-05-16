@@ -17,7 +17,7 @@ const JudgeOralCompPage = () => {
 
     const pageText = {
         EN: {welcomeMsg: 'My Assigned Rounds', matchupText: 'Matchup', locationText: 'Location', classroomText: 'Room', timeText: 'Time', noMatchesText: 'No remaining oral rounds to score', loadingText: 'Loading assigned oral rounds...', logoutText: 'Sign Out'}, 
-        ES: {welcomeMsg: 'Mis Rondas Asignadas', matchupText: 'Emparejamiento', locationText: 'Ubicación', classroomText: 'Aula', timeText: 'Hora', noMatchesText: 'No hay rondas orales pendientes por calificar', loadingText: 'Cargando rondas orales asignadas...', logoutText: 'Cerrar Sesión'},
+        SPA: {welcomeMsg: 'Mis Rondas Asignadas', matchupText: 'Emparejamiento', locationText: 'Ubicación', classroomText: 'Aula', timeText: 'Hora', noMatchesText: 'No hay rondas orales pendientes por calificar', loadingText: 'Cargando rondas orales asignadas...', logoutText: 'Cerrar Sesión'},
         POR: {welcomeMsg: 'Minhas Rodadas Atribuídas', matchupText: 'Confronto', locationText: 'Localização', classroomText: 'Sala de Aula', timeText: 'Hora', noMatchesText: 'Não há rodadas orais restantes para avaliar', loadingText: 'Carregando rondas orais atribuídas...', logoutText: 'Sair'}
     };
 
