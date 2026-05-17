@@ -16,7 +16,7 @@ const pageText = {
         emailRequired: 'Email is required.',
         invalidEmail: 'Please enter a valid email address.'
     },
-    ES: {
+    SPA: {
         mainTitle: 'IAMOOT 2026 - Solicitar Contraseña',
         emailLabel: 'Correo Electrónico',
         submitBtn: 'Enviar Enlace de Contraseña',
@@ -59,7 +59,7 @@ export default function RequestPassword() {
 
     const handleFormSubmit = async (someData) => {
         try {
-            await api.post('/api/judges/request-password', {
+            await api.post('/api/oral-judges/request-password', {
                 email: someData.email
             }); 
         } catch (err) {

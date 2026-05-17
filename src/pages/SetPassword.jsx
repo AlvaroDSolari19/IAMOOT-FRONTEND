@@ -20,7 +20,7 @@ const pageText = {
         successMsg: 'Your password has been set successfully. You may now log in.',
         returnLink: 'Return to Login'
     },
-    ES: {
+    SPA: {
         mainTitle: 'IAMOOT 2026 - Establecer Contraseña',
         passwordLabel: 'Nueva Contraseña',
         confirmPasswordLabel: 'Confirmar Contraseña',
@@ -80,7 +80,7 @@ export default function SetPassword() {
     const handleFormSubmit = async (someData) => {
         
         try {
-            await api.post('/api/judges/set-password', {
+            await api.post('/api/oral-judges/set-password', {
                 email: emailParam, 
                 resetToken: resetTokenParam, 
                 newPassword: someData.newPassword

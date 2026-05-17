@@ -1,10 +1,12 @@
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
-import { Alert, Button, Card, Form } from 'react-bootstrap';
+import { Alert, Button, Card, Form, Image } from 'react-bootstrap';
 
 import { LanguageContext } from '../contexts/LanguageContext';
 import api from '../services/api';
+
+const selectedImage = "/images/LogoIAMOOT.jpeg";
 
 const pageText = {
     EN: {
@@ -18,7 +20,7 @@ const pageText = {
         passwordRequired: 'Password is required.',
         invalidCredentials: 'Email or password is incorrect.'
     },
-    ES: {
+    SPA: {
         mainTitle: 'IAMOOT 2026 - Acceso a la Plataforma',
         userLabel: 'Correo Electronico',
         passwordLabel: 'Contraseña',
@@ -66,7 +68,7 @@ export default function Login() {
     const onSubmit = async (someData) => {
 
         try {
-            const loginResponse = await api.post('/api/judges/login', {
+            const loginResponse = await api.post('/api/oral-judges/login', {
                 email: someData.email,
                 password: someData.password
             });
@@ -91,6 +93,8 @@ export default function Login() {
         {authError && (
             <Alert variant='danger' className='mx-4 text-center fw-semibold'>{authError}</Alert>
         )}
+
+        <Image src={selectedImage} alt='IAMOOT Logo' fluid className='mx-auto d-block' style={{ width: '50%', maxWidth: '620px', height: 'auto' }} />
 
         <Form onSubmit={handleSubmit(onSubmit)} noValidate>
             <Form.Group className='mb-3 px-4'>
