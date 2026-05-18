@@ -24,6 +24,33 @@ const JudgeOralCompPage = () => {
 
     const actualText = pageText[currentLanguage] || pageText['EN'];; 
 
+    const translateMatchDay = (matchDay) => {
+        const dayTranslations = {
+            EN: {
+                Monday: 'Monday',
+                Tuesday: 'Tuesday',
+                Wednesday: 'Wednesday',
+                Thursday: 'Thursday',
+                Friday: 'Friday',
+            },
+            SPA: {
+                Monday: 'Lunes',
+                Tuesday: 'Martes',
+                Wednesday: 'Miércoles',
+                Thursday: 'Jueves',
+                Friday: 'Viernes',
+            },
+            POR: {
+                Monday: 'Segunda-feira',
+                Tuesday: 'Terça-feira',
+                Wednesday: 'Quarta-feira',
+                Thursday: 'Quinta-feira',
+                Friday: 'Sexta-feira',
+            }
+        };
+        return dayTranslations[currentLanguage]?.[matchDay] || matchDay || 'N/A';
+    };
+
     const handleSignOut = () => {
         localStorage.removeItem('authToken');
         resetLanguage();  
@@ -105,7 +132,7 @@ const JudgeOralCompPage = () => {
                             <br />
 
                             <strong>{actualText.dayText}:</strong>{' '}
-                            {currentMatch.matchDay || 'N/A'}
+                            {translateMatchDay(currentMatch.matchDay)}
                             <br />
 
                             <strong>{actualText.classroomText}:</strong>{' '}
