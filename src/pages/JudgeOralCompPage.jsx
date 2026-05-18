@@ -16,10 +16,11 @@ const JudgeOralCompPage = () => {
     const [loadError, setLoadError] = useState('');
 
     const pageText = {
-        EN: {welcomeMsg: 'My Assigned Rounds', matchupText: 'Matchup', locationText: 'Location', classroomText: 'Room', timeText: 'Time', noMatchesText: 'No remaining oral rounds to score', loadingText: 'Loading assigned oral rounds...', logoutText: 'Sign Out'}, 
-        SPA: {welcomeMsg: 'Mis Rondas Asignadas', matchupText: 'Emparejamiento', locationText: 'Ubicación', classroomText: 'Aula', timeText: 'Hora', noMatchesText: 'No hay rondas orales pendientes por calificar', loadingText: 'Cargando rondas orales asignadas...', logoutText: 'Cerrar Sesión'},
-        POR: {welcomeMsg: 'Minhas Rodadas Atribuídas', matchupText: 'Confronto', locationText: 'Localização', classroomText: 'Sala de Aula', timeText: 'Hora', noMatchesText: 'Não há rodadas orais restantes para avaliar', loadingText: 'Carregando rondas orais atribuídas...', logoutText: 'Sair'}
+        EN: {welcomeMsg: 'My Assigned Rounds', dayText: 'Day', matchupText: 'Matchup', locationText: 'Location', classroomText: 'Room', timeText: 'Time', noMatchesText: 'No remaining oral rounds to score', loadingText: 'Loading assigned oral rounds...', logoutText: 'Sign Out'}, 
+        SPA: {welcomeMsg: 'Mis Rondas Asignadas', dayText: 'Día', matchupText: 'Emparejamiento', locationText: 'Ubicación', classroomText: 'Aula', timeText: 'Hora', noMatchesText: 'No hay rondas orales pendientes por calificar', loadingText: 'Cargando rondas orales asignadas...', logoutText: 'Cerrar Sesión'},
+        POR: {welcomeMsg: 'Minhas Rodadas Atribuídas', dayText: 'Dia', matchupText: 'Confronto', locationText: 'Localização', classroomText: 'Sala de Aula', timeText: 'Hora', noMatchesText: 'Não há rodadas orais restantes para avaliar', loadingText: 'Carregando rondas orais atribuídas...', logoutText: 'Sair'}
     };
+
 
     const actualText = pageText[currentLanguage] || pageText['EN'];; 
 
@@ -101,6 +102,10 @@ const JudgeOralCompPage = () => {
                             <strong>{actualText.matchupText}:</strong>{' '}
                             {currentMatch.firstTeam} ({currentMatch.firstTeamRole}) vs{' '}
                             {currentMatch.secondTeam} ({currentMatch.secondTeamRole})
+                            <br />
+
+                            <strong>{actualText.dayText}:</strong>{' '}
+                            {currentMatch.matchDay || 'N/A'}
                             <br />
 
                             <strong>{actualText.classroomText}:</strong>{' '}
